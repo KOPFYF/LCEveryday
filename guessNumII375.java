@@ -9,7 +9,7 @@ class Solution {
                        j + dp[i][j - 1] // pick j
                       )
         return: dp[1][n]
-        time: O(n)
+        time: O(n^3) 15 ms space: O(n^2) 38.2 MB
     */
     public int getMoneyAmount(int n) {
         if (n == 1) return 0;
