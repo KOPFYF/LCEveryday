@@ -4,8 +4,9 @@ class Solution(object):
         :type height: List[int]
         :rtype: int
         """
-        # 2 Pointers, time O(n), space O(1)
-        # Keep track of the max height from forward & backward directions, call them leftmax and rightmax.
+        # Keep track of the max height from forward & backward directions, 
+        # call them leftmax and rightmax.
+        # same idea as 11. Container With Most Water
         if not height or len(height) < 3:
             return 0
     

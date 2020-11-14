@@ -5,6 +5,7 @@ class Solution(object):
         :type people: List[List[str]]
         :rtype: List[int]
         """
+        # Bottom up DP, Time O(m * (2^N))
         # 1 <= req_skills.length <= 16, possible states 2^16 = 65536
         # bitmask dp with len = 1 << n, and return dp[(1 << n) - 1]
         # 1 <= people.length(m) <= 60
@@ -39,4 +40,66 @@ class Solution(object):
         return dp[(1 << n) - 1]
                 
             
-        
+
+class Solution2:
+    def smallestSufficientTeam(self, req_skills: List[str], people: List[List[str]]) -> List[int]:
+        # f: hash skills into id
+        f = {x:1 << i for i, x in enumerate(req_skills)}
+        n = len(req_skills)
+        fullSkill = (1 << n) - 1
+        q = [(0, [])] # start from state 00000 with no people
+        ## Changed set
+        cache = set()
+        # level by level BFS
+        while q:
+            temp_q = [] # next people list
+            for x, path in q: # current state, current path
+                for i in range(len(people)):
+                    # loop each person
+                    tempx = x
+                    # for person i, update state as far as possible to tempx
+                    for skill in people[i]:
+                        tempx |= f[skill]
+                    # check end condition and return early
+                    if tempx == fullSkill:
+                        return path + [i]
+                    if tempx not in cache:
+                        cache.add(tempx) # add state
+                        # since it's level-BFS, current people list must be shorter than adding more people later
+                        temp_q.append((tempx, path + [i])) 
+            q = temp_q
+
+
+
+class Solution3:
+    def smallestSufficientTeam(self, req_skills: List[str], people: List[List[str]]) -> List[int]:
+        # Top down DP
+        res = [''] * 17
+        n = len(req_skills)
+        def dfs(idx, has, path):
+            # idx: current skill we request
+            # has: current total skillset
+            # path: current path
+            nonlocal res
+            if idx == n:
+                # to the end
+                res = path
+            elif req_skills[idx] in has:
+                # we already cover this skill in our skillset
+                dfs(idx + 1, has, path)
+            else:
+                if len(path) + 1 < len(res):
+                    # only when current people list + 1 shorter than current optimal list
+                    for i, p in enumerate(people):
+                        p = set(p) # set of current person's skillset
+                        if req_skills[idx] in p:
+                            # if current person has the cur skill we need, add him
+                            union = p & has # pruning redudant skills for current person
+                            has |= p # update skillsets
+                            # recursion
+                            dfs(idx + 1, has, path + [i])
+                            # remember to recover 'has' set
+                            has -= p # remove impact from current guy
+                            has |= union # recover what we prune before
+        dfs(0, set(), [])
+        return res
