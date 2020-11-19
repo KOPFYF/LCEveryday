@@ -10,7 +10,7 @@ class Solution:
         i, j, found = 0, len(s) - 1, 0
         min_win = ""
         for j in range(len(s)):
-            if d[s[j]] > 0:
+            if d[s[j]] > 0: # every time we find the dict value is +, it means we found another one
                 found += 1
             d[s[j]] -= 1 # non-target char will be negative
             while found == len(t):

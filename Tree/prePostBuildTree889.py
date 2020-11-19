@@ -25,3 +25,10 @@ class Solution(object):
         root.left = self.constructFromPrePost(pre[1: idx], post[: (idx - 1)])
         root.right = self.constructFromPrePost(pre[idx: ], post[(idx - 1): -1])
         return root
+
+
+from collections import Counter
+
+D1 = Counter({'A': 2, 'B': 1, 'C': 4, 'D': 5})
+D2 = Counter({'A': 3, 'B': 4, 'C': 4, 'D': 7})
+print(D1 - D2, len(D1 - D2), D2 - D1)
