@@ -52,34 +52,36 @@ class Solution1(object):
 
 
 class Solution2:
-    def calcEquation(self, equations, values, queries):
-        # build graph takes O(E), each query takes O(N), space takes O(N^2)
-        graph = defaultdict(dict) # for compression and memory
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        # BFS, time O((V + E)*q)
+        # a/b = 2.0, b/c = 3.0
+        # a -- 2.0 --> b -- 3.0 --> c
+        # c -- 1/3 --> b -- 1/2 --> a
+        # compress paths to make it faster (add memo)
+        graph = defaultdict(dict) 
         for ([x,y], value) in zip(equations, values):
             graph[x][y] = value
             graph[y][x] = 1 / value
-        
-        def find_prod(s,e):
-            if s not in graph or e not in graph:
-                return -1.0
+            
+        def bfs(query):
+            s, e = query
+            if s not in graph or e not in graph: return -1.0
             if s == e: return 1.0
-            q = deque([(s, 1.0)])
-            visited = {s}
-            while q:
-                n, curr = q.popleft()
-                for child, value in graph[n].items():
-                    if child in visited:
-                        continue
-                    nc = curr * value
-                    if child == e:
-                        return nc
-                    # compress
-                    graph[s][child] = nc 
-                    graph[child][s] = 1 / nc
-                    visited.add(child)
-                    q.append((child, nc))
+            
+            dq, seen = deque([(s, 1.0)]), {s}
+            while dq:
+                node, prod = dq.popleft()
+                for nxt_node, nxt_edge in graph[node].items():
+                    nxt_prod = prod * nxt_edge
+                    if nxt_node not in seen:
+                        if nxt_node == e: return nxt_prod
+                        # compress edge
+                        graph[s][nxt_node] = nxt_prod
+                        graph[nxt_node][s] = 1 / nxt_prod
+                        seen.add(nxt_node)
+                        dq.append((nxt_node, nxt_prod))
             return -1.0
         
-        return [find_prod(s,e) for [s,e] in queries]
+        return [bfs(query) for query in queries]
 
 
