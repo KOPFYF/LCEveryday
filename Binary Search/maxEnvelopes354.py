@@ -10,6 +10,7 @@ class Solution:
         # we can only pick at most one height within each block
         # otherwise, the sequence would be non-increasing       
         def bs(tails, h):
+            # r = len(tails) but not len()-1 becasue len() is also a possible res
             l, r = 0, len(tails)
             while l < r:
                 mid = (l + r) // 2
