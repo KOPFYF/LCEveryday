@@ -14,3 +14,18 @@ class Solution:
         # [10,9,2,5,3,7,101,18]
         # [1, 1, 1, 2, 2, 3, 4, 4]
         return max(dp)
+
+class Solution2:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        # Top down DP
+        n = len(nums)
+        @lru_cache(None)
+        def dfs(i):
+            if i == 0: return 1
+            res = 1 # base case it's the element itself if no nums[j] < nums[i]
+            for j in range(i):
+                if nums[j] < nums[i]:
+                    res = max(dfs(j) + 1, res) 
+            return res
+        
+        return max(dfs(i) for i in range(n))
