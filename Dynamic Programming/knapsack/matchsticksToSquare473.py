@@ -1,4 +1,4 @@
-473class Solution1(object):
+class Solution1(object):
     def makesquare(self, nums):
         """
         :type nums: List[int]
