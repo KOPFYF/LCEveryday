@@ -1,3 +1,32 @@
+class Solution_topo:
+    def checkIfPrerequisite(self, n: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
+        # O(V + E + Q) / O(V + E + Q)
+        def topo_sort(n, pre):
+            # O(V + E) / O(V + E)
+            graph = defaultdict(list)
+            indegrees = {v:0 for v in range(n)}
+            preset = defaultdict(set)
+            for i, j in pre:
+                preset[j].add(i) # set to keep track of prerequisite
+                graph[i].append(j)
+                indegrees[j] += 1
+            
+            bfs = deque([k for k, v in indegrees.items() if v == 0])
+            while bfs:
+                cur = bfs.popleft()
+                for nxt in graph[cur]:
+                    preset[nxt] = preset[nxt] | preset[cur] # union set
+                    indegrees[nxt] -= 1
+                    if indegrees[nxt] == 0:
+                        bfs.append(nxt)
+            return preset
+        
+        preset = topo_sort(n, prerequisites)
+        # print(preset) # {1: {0}, 2: {0, 1}, 3: {0, 1, 2}, 4: {0, 1, 2, 3}, 0: set()}
+        
+        return [True if u in preset[v] else False for u, v in queries]
+
+
 class Solution1_py3_cache:
     def checkIfPrerequisite(self, n: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
         # DFS + memo (aka Top down DP)
@@ -24,17 +53,6 @@ class Solution1_py3_cache:
             result.append(dfs(query[0], query[1]))
         return result
 
-#         # Floyd–Warshall Algorithm，Time O(n^3)
-#         graph = [[False for i in range(n)] for j in range(n)]
-#         for p in prerequisites:
-#             graph[p[0]][p[1]] = True
-        
-#         for k in range(n):
-#             for i in range(n):
-#                 for j in range(n):
-#                     graph[i][j] = graph[i][j] or (graph[i][k] and graph[k][j])
-        
-#         return [graph[i][j] for i, j in queries]
 
 
 class Solution2(object):
@@ -71,3 +89,18 @@ class Solution2(object):
         for query in queries:
             result.append(dfs(query[0], query[1]))
         return result
+
+
+class Solution3(object):
+    def checkIfPrerequisite(self, n, pre, queries):
+        # Floyd–Warshall Algorithm，Time O(n^3)
+        graph = [[False for i in range(n)] for j in range(n)]
+        for p in prerequisites:
+            graph[p[0]][p[1]] = True
+        
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    graph[i][j] = graph[i][j] or (graph[i][k] and graph[k][j])
+        
+        return [graph[i][j] for i, j in queries]

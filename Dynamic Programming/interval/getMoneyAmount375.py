@@ -1,9 +1,11 @@
 class Solution:
     def getMoneyAmount(self, n: int) -> int:
+        # dfs + memo
         @lru_cache(None)
         def dfs(i, j):
             if i >= j: return 0
-            if i >= j - 2: # this base case could be commented
+            if i >= j - 2: 
+                # this base case could be commented
                 # window size is like [8, 9] or [8, 10]
                 # [8, 9] we guess 8, [8, 10] we guess 9!
                 return j - 1
