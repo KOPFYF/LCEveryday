@@ -37,3 +37,31 @@ class Solution(object):
                 dp[i][j] = max(f[i], g[j])
 
         return dp[1][n]
+
+
+class Solution_TLE:
+    def stoneGameV(self, A: List[int]) -> int:
+        # DP, O(N^3) TLE
+        n = len(A)
+        prefix = [0] * (n + 1)
+        for i, a in enumerate(A):
+            prefix[i + 1] = prefix[i] + A[i]
+
+        memo = {}
+        def dfs(i, j):
+            if (i, j) in memo:
+                return memo[(i, j)]
+            if i == j: 
+                return 0
+            res = 0
+            for m in range(i, j):
+                left = prefix[m + 1] - prefix[i]
+                right = prefix[j + 1] - prefix[m + 1]
+                if left <= right:
+                    res = max(res, dfs(i, m) + left)
+                if left >= right:
+                    res = max(res, dfs(m + 1, j) + right)
+                memo[(i, j)] = res    
+            return res
+        
+        return dfs(0, n - 1)

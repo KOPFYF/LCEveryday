@@ -1,4 +1,15 @@
-class Solution(object):
+class Solution1:
+    def winnerSquareGame(self, n: int) -> bool:
+        # Top down
+        @lru_cache(None)
+        def dfs(n):
+            for i in range(1, int(n**0.5) + 1):
+                if not dfs(n - i*i):
+                    return True
+            return False
+        return dfs(n)
+
+class Solution2(object):
     def winnerSquareGame(self, n):
         """
         :type n: int
