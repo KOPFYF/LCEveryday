@@ -1,12 +1,13 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         # count airplane in the sky
+        # O(NlogN) / O(N)
         ls = []
         for i, j in intervals:
             ls.append((i, 1))
             ls.append((j, -1))
             
-        # ls.sort(key = lambda x:(x[0], x[1]))
+        # ls.sort(key = lambda x:(x[0], x[1])) # first -1, then +1
         ls.sort()
         res, cnt = 0, 0
         for k, v in ls:
@@ -22,7 +23,7 @@ class Solution:
         return res
             
         
-        
+        # heap
         intervals.sort(key = lambda x:x[0]) # sort by start time
         hq = [] # store the end time
         for sch in intervals:

@@ -1,12 +1,5 @@
 class Solution(object):
     def sortItems(self, n, m, group, beforeItems):
-        """
-        :type n: int
-        :type m: int
-        :type group: List[int]
-        :type beforeItems: List[List[int]]
-        :rtype: List[int]
-        """
         # Helper function: returns topological order of a graph, if it exists.
         def get_top_order(graph, indegree):
             top_order = []
@@ -37,12 +30,7 @@ class Solution(object):
                 indegree_items[u] += 1
                 if group[u]!=group[v]:
                     graph_groups[group[v]].append(group[u])
-                    indegree_groups[group[u]] += 1  
-                    
-        # print('graph_item:', graph_items)
-        # print('graph_group:', graph_groups)
-        # print('indegree_item:', indegree_items)
-        # print('indegree_group:', indegree_groups)
+                    indegree_groups[group[u]] += 1 
 
         # STEP 3: Find topological orders of items and groups.
         item_order = get_top_order(graph_items, indegree_items)

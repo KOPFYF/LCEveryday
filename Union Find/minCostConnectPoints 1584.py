@@ -26,7 +26,7 @@ class DSU(object):
             self.parents[i] = i
     
     def find(self, x):
-        if self.parents[x] != x: # if x is nott root
+        if self.parents[x] != x: # if x is not root
             self.parents[x] = self.find(self.parents[x]) # recursion
         return self.parents[x]
     

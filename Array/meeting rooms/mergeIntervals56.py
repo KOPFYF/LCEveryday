@@ -10,8 +10,9 @@ class Solution(object):
         :type intervals: List[Interval]
         :rtype: List[Interval]
         """
-        if (intervals is None or len(intervals) == 0): return []
-        intervals = sorted(intervals, key = lambda x: x.start)
+        if (intervals is None or len(intervals) == 0): 
+            return []
+        intervals = sorted(intervals, key = lambda x: x.start) # sort by start time
         merged = [intervals[0]]
         counter = 0
         for i in range(1, len(intervals)): 

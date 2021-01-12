@@ -12,7 +12,7 @@ class Solution(object):
             if e < new[0]:
                 # before
                 res.append([s, e])
-            elif s > new[1]:
+            elif s > new[1]: # overshoot
                 i -= 1 # back one step and append all after
                 break
             else:

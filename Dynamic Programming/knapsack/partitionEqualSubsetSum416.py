@@ -10,7 +10,7 @@ class Solution_td:
         def dfs(n, pos):
             if n == target:
                 return True
-            if n > target: # overshoot
+            if n > target or pos == len(nums): # overshoot
                 return False
             for i in range(pos, len(nums)):
                 if dfs(n + nums[i], i + 1):
