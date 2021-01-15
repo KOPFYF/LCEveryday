@@ -20,13 +20,14 @@ class Solution:
     def catMouseGame(self, graph: List[List[int]]) -> int:
         # 
         N = len(graph)
+        # 0 unvisited, 1 mouse turn, 2 cat turn
         color = [[[0]*3 for _ in range(N)] for _ in range(N)]        
         q = collections.deque()
         for i in range(1,N):            
             for t in range(1,3):                
-                color[0][i][t] = 1
+                color[0][i][t] = 1 # mouse into hole, mouse wins
                 q.append((0,i,t))                                                
-                color[i][i][t] = 2                
+                color[i][i][t] = 2  # cat wins, (i != 0 cat cannot into hole )          
                 q.append((i,i,t))
         
         while (q):

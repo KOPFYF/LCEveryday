@@ -1,5 +1,6 @@
 class Solution:
     def swimInWater(self, grid: List[List[int]]) -> int:
+        # heap, O(n^2logn)
         n, res = len(grid), 0
         seen, pq = set((0, 0)), [(grid[0][0], 0, 0)]
         while pq:
