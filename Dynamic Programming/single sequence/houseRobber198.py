@@ -1,4 +1,4 @@
-class Solution2(object):
+class Solution1(object):
     def rob(self, nums):
         """
         :type nums: List[int]

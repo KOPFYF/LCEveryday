@@ -1,27 +1,21 @@
-class Solution(object):
-    def openLock(self, deadends, target):
-        """
-        :type deadends: List[str]
-        :type target: str
-        :rtype: int
-        """
-        # BFS
-        dead_set = set(deadends)
-        queue = collections.deque([('0000', 0)])
-        visited = set(['0000'])
-
-        while queue:
-            numstr, steps = queue.popleft()
-            if numstr == target:
-                return steps
-            elif numstr in dead_set:
-                continue # skip current loop
+class Solution:
+    def openLock(self, deadends: List[str], target: str) -> int:
+        # BFS, O(4 ^ 10 + 4 * 10)
+        deadSet = set(deadends)
+        bfs = collections.deque([('0000', 0)])
+        seen = set(['0000'])
+        
+        while bfs:
+            cur, step = bfs.popleft()
+            if cur == target: return step
+            if cur in deadSet: continue # skip current loop
+            # nxt node has 4 * 2 possible cases
             for i in range(4):
-                digit = int(numstr[i])
-                for move in [-1, 1]:
-                    new_digit = (digit + move) % 10 # make sure it's positive
-                    new_numstr = numstr[:i] + str(new_digit) + numstr[i + 1:]
-                    if new_numstr not in visited:
-                        visited.add(new_numstr)
-                        queue.append((new_numstr, steps + 1))
+                digit = int(cur[i])
+                for move in (-1, 1):
+                    new_digit = (digit + move) % 10 # (9 + 1) % 10 = 0
+                    nxt = cur[:i] + str(new_digit) + cur[i+1:]
+                    if nxt not in seen:
+                        bfs.append((nxt, step + 1))
+                        seen.add(nxt)
         return -1

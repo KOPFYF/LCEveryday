@@ -4,8 +4,14 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def isSymmetric(self, root):
+    def isSymmetric(self, root: TreeNode) -> bool:
         if root is None:
             return True
         return self.isMirror(root.left, root.right)
@@ -16,9 +22,4 @@ class Solution:
         if left is None or right is None:
             return False
 
-        if left.val == right.val:
-            outPair = self.isMirror(left.left, right.right)
-            inPiar = self.isMirror(left.right, right.left)
-            return outPair and inPiar
-        else:
-            return False
+        return left.val == right.val and self.isMirror(left.left, right.right) and self.isMirror(left.right, right.left)
