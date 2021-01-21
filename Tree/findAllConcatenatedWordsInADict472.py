@@ -10,7 +10,7 @@ class Solution:
                 prefix, suffix = word[:second_idx], word[second_idx:]
                 if (prefix in words and suffix in words) or \
                     (prefix in words and dfs(suffix)): # base case (or) recursion
-                    memo[word]=True
+                    memo[word] = True
                     return True
             memo[word] = False
             return False
