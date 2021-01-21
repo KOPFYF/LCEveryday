@@ -6,26 +6,23 @@
 #         self.right = right
 
 class Solution(object):
-    def __init__(self):
-        self.current_max = float('-inf') # this must be global
-
     def maxPathSum(self, root):
         """
         :type root: TreeNode
         :rtype: int
         """
+        self.current_max = float('-inf') # this must be global
         self.maxPathSumHelper(root)
         return self.current_max
 
     def maxPathSumHelper(self, root):
-        """Helper method"""
         if not root:
             return 0
     
         left = self.maxPathSumHelper(root.left)
         right = self.maxPathSumHelper(root.right)
     
-        # if child is negative, dont take any, just mark as 0
+        # like DP, if child is negative, dont take any, just mark as 0
         left = max(left, 0)
         right = max(right, 0)
         

@@ -22,7 +22,7 @@ class Solution:
                     dsu.union(i, j)
         res = 0
         for i in range(n):
-            if dsu.find(i) == i:
+            if dsu.find(i) == i: # check&count root for each group
                 res += 1
         return res
         

@@ -28,7 +28,23 @@ class Solution(object):
             if root.right:
                 self.dfs(root.right, target - root.val, ls + [root.val], res)
 
-    def pathSum2(self, root, sum):
+class Solution1:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        if not root: return []
+        res = []
+        def dfs(root, target, path):
+            if not root.left and not root.right and root.val == target:
+                res.append(path + [root.val])
+            if root.left:
+                dfs(root.left, target - root.val, path + [root.val])
+            if root.right:
+                dfs(root.right, target - root.val, path + [root.val])
+        
+        dfs(root, sum, [])
+        return res
+
+class Solution2(object):
+    def pathSum(self, root, sum):
         if not root:
             return []
         if not root.left and not root.right and sum == root.val:
@@ -37,6 +53,7 @@ class Solution(object):
         return [[root.val] + i for i in tmp]
 
 
+class Solution3(object):
     # BFS + queue    
     def pathSum3(self, root, sum): 
         if not root:
@@ -53,6 +70,8 @@ class Solution(object):
                 queue.append((curr.right, val+curr.right.val, ls+[curr.right.val]))
         return res
 
+
+class Solution4(object):
     # DFS + stack I  
     def pathSum4(self, root, sum): 
         if not root:

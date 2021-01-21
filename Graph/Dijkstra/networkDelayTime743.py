@@ -12,7 +12,7 @@ class Solution(object):
         for _ in range(N - 1): # for each vertex
             for u, v, w in times: # for each edge
                 if dist[u - 1] + w < dist[v - 1]:
-                    dist[v - 1] = dist[u - 1] + w
+                    dist[v - 1] = dist[u - 1] + w499minDepth
         return max(dist) if max(dist) < float('inf') else -1
     
         # Dijkstra， time O(E+VlogV), space O(V+E)
