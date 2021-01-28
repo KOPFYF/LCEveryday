@@ -1,4 +1,28 @@
-class Solution(object):
+class Solution:
+    def pacificAtlantic(self, matrix: List[List[int]]) -> List[List[int]]:
+        if not matrix: return []
+        m, n = len(matrix), len(matrix[0])
+        dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        seen_p, seen_a = set(), set()
+        def dfs(x, y, seen):
+            seen.add((x, y))
+            for dx, dy in dirs:
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < m and 0 <= ny < n and \
+                (nx, ny) not in seen and matrix[nx][ny] >= matrix[x][y]:
+                    dfs(nx, ny, seen)
+        
+        for i in range(m):
+            dfs(i, 0, seen_p)
+            dfs(i, n - 1, seen_a)
+        for j in range(n):
+            dfs(0, j, seen_p)
+            dfs(m - 1, j, seen_a)
+        
+        return [[i, j] for i in range(m) for j in range(n) if (i, j) in seen_p and (i, j) in seen_a]
+
+
+class Solution2(object):
     def pacificAtlantic(self, M):
         """
         :type matrix: List[List[int]]
