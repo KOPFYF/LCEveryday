@@ -1,6 +1,6 @@
 class Solution:
     def findTheLongestSubstring(self, s: str) -> int:
-        # Bit mask & hash map
+        # Bit mask & hash map, like 2 sum, O(5n)/O(n)
         mask = {'a': 1, 'e': 2, 'i': 4, 'o': 8, 'u': 16}
         d, n, res = {0: -1}, 0, 0
         for i, c in enumerate(s):

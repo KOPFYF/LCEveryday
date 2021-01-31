@@ -18,3 +18,5 @@ num = 6
 num2 = num & (num-1)
 num3 = num ^ (num-1)
 print(num3, num2, bin(num), bin(num - 1), bin(num3), bin(num2))
+
+print(bin(2), bin(1), bin(2 ^ 1) )
