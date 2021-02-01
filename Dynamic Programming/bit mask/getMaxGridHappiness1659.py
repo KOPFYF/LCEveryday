@@ -1,6 +1,6 @@
 class Solution:
     def getMaxGridHappiness(self, m: int, n: int, I: int, E: int) -> int:
-        # DFS + Memo, tracking last n cells
+        # DFS + Memo, tracking last n cells, O(3^n)
         # For each cell we have 3 states -> 0: empty, 1: intro, 2: extro
         # Only previous N bits matter (previous 1 is left, previous N is up)
         # Naturally, we use Ternary to construct our prevN bit mask

@@ -1,20 +1,18 @@
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         # BFS
-        wordList = set(wordList)    
-        if endWord not in wordList:
-            return 0
-        charList = set(w for word in wordList for w in word)
-        bfs = deque([(beginWord, 0)])
-        
+        wordSet = set(wordList)    
+        if endWord not in wordSet: return 0
+        charSet = set(ch for word in wordSet for ch in word)
+        seen, bfs = set(beginWord), deque([(beginWord, 0)])
         while bfs:
-            curWord, depth = bfs.popleft()
-            if curWord == endWord: 
-                return depth + 1 # actually return next level
-            for i in range(len(curWord)):
-                for c in charList:
-                    nxtWord = curWord[:i] + c + curWord[i + 1:]
-                    if nxtWord in wordList:
-                        bfs.append((nxtWord, depth + 1))
-                        wordList.remove(nxtWord) # avoid cycle
+            word, step = bfs.popleft() 
+            if word == endWord: return step + 1
+            for i in range(len(word)):
+                for ch in charSet:
+                    nxt_word = word[:i] + ch + word[i+1:]
+                    if nxt_word not in seen and nxt_word in wordSet:
+                        print(nxt_word)
+                        seen.add(nxt_word)
+                        bfs.append((nxt_word, step + 1))
         return 0

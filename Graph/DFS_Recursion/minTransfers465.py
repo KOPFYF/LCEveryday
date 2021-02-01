@@ -71,3 +71,35 @@ class Solution2:
                 return minNumTrans
 
         return dfs(0, 0)
+
+
+
+class Solution3_bitmask_dp:
+    def minTransfers(self, transactions):
+        # https://leetcode.com/problems/optimal-account-balancing/discuss/219187/Short-O(N-*-2N)-DP-solution-with-detailed-explanation-and-complexity-analysis
+        # Running Time: O(N * 2^N), there are 2^N subproblems, each subproblem contributes to O(N) larger problems.
+        # Space: O(2^N)
+        persons = collections.defaultdict(int)
+        for sender, receiver, amount in transactions:
+            persons[sender] -= amount
+            persons[receiver] += amount
+        
+        amounts = [amount for amount in persons.values() if amount != 0]
+        
+        N = len(amounts)
+        dp = [0] * (2**N) # dp[mask] = number of sets whose sum = 0
+        sums = [0] * (2**N) # sums[mask] = sum of numbers in mask
+        
+        for mask in range(2**N):
+            set_bit = 1
+            for b in range(N):
+                if mask & set_bit == 0:
+                    nxt = mask | set_bit
+                    sums[nxt] = sums[mask] + amounts[b]
+                    if sums[nxt] == 0: 
+                        dp[nxt] = max(dp[nxt], dp[mask] + 1)
+                    else: 
+                        dp[nxt] = max(dp[nxt], dp[mask])
+                set_bit <<= 1
+        
+        return N - dp[-1]
