@@ -1,3 +1,6 @@
+print(19%(-3))
+print((-19)%3)
+
 class Solution(object):
     def solve(self, grid):
         """
