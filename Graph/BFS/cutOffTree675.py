@@ -1,5 +1,7 @@
 class Solution:
     def cutOffTree(self, forest: List[List[int]]) -> int:
+        # The worst case time complexity could be O(m^2 * n^2) (m = number of rows, n = number of columns) 
+        # since there are m * n trees and for each BFS worst case time complexity is O(m * n) too.
         m, n = len(forest), len(forest[0])
         hq = [(forest[i][j], i, j) for i in range(m) for j in range(n) if forest[i][j] > 1]
         heapq.heapify(hq)
@@ -15,6 +17,7 @@ class Solution:
         return res
     
     def bfs(self, forest, i, j, x, y):
+        # O(mn)
         m, n = len(forest), len(forest[0])
         dq = deque([(i, j, 0)])
         seen = set((i, j))

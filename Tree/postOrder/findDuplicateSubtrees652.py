@@ -4,7 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
+class Solution1:
     def findDuplicateSubtrees(self, root: TreeNode) -> List[TreeNode]:
         # PostOrder
         def trv(root):
@@ -16,10 +16,11 @@ class Solution:
         
         nodes = collections.defaultdict(list)
         trv(root)
-        print(nodes)
+        # print(nodes)
         return [nodes[struct][0] for struct in nodes if len(nodes[struct]) > 1]
         
-        
+class Solution2:
+    def findDuplicateSubtrees(self, root: TreeNode) -> List[TreeNode]:        
         # Serializing and hashing the serials of subtrees in the process. 
         # We can recognize a duplicate subtree by its serialization.
         # O(n^2), postorder traversal, inorder would fail!!(cannot distinguish left and right)
