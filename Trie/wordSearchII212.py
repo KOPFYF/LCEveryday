@@ -57,7 +57,10 @@ class Solution:
         return res
 
 # https://stackoverflow.com/questions/4081561/what-is-the-difference-between-list-and-list-in-python
-        
+# When reading, list is a reference to the original list, and list[:] shallow-copies the list.
+# When assigning, list (re)binds the name and list[:] slice-assigns, replacing what was previously in the list.
+
+
         
         
         
