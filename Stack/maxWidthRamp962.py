@@ -1,7 +1,7 @@
 class Solution:
     def maxWidthRamp(self, A: List[int]) -> int:
         # Mono-dec Stack, time O(n), space O(n)  
-        stack = []
+        stack = [] # to store all candidate start points
         # best candidates idx in dec-order from [9,8,1,0,1,9,4,0,4,1]
         # It's guaranteed to include A[0], as well as the minimum of A.
         for i, a in enumerate(A):
