@@ -20,8 +20,27 @@ class Solution(object):
             self.dfs(nums, target - nums[i], i, path + [nums[i]], res)
 
 
+class Solution1:
+    def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
+        res = []
+        def dfs(nums, pos, target, path):
+            if target < 0:
+                return 
+            if target == 0:
+                res.append(path[:])
+                return
+                
+            for i in range(pos, len(nums)):
+                path.append(nums[i])
+                dfs(nums, i, target - nums[i], path)
+                path.pop()
+        
+        dfs(nums, 0, target, [])
+        return res
+
+
 class Solution2(object):
-    def combinationSum2(self, candidates, target):
+    def combinationSum(self, candidates, target):
         """
         :type candidates: List[int]
         :type target: int
