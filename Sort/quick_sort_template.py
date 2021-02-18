@@ -1,44 +1,26 @@
 # Soln 1
-def quickselect1(items, item_index):
+def partition(A, l, r):
+    pivot = A[r] # right end as pivot
+    i = l - 1 # slow ptr
+    for j in range(l, r):
+        if A[j] < pivot:
+            i += 1
+            A[i], A[j] = A[j], A[i]
+    A[i+1], A[r] = A[r], A[i+1]
+    return i+1 # return split index
 
-    def select(lst, l, r, index):
+def quick_sort(A, l, r):
+    # divide and conquer
+    if l < r: # end condition is l >= r
+        pivot_index = partition(A, l, r)
+        quick_sort(A, pivot_index+1, r)
+        quick_sort(A, l, pivot_index-1)
 
-        # base case
-        if r == l:
-            return lst
+A = [2, 3, 5, 3, 1, 0, 4]
+quick_sort(A, 0, len(A)-1)
+print(A)
 
-        # choose random pivot
-        pivot_index = random.randint(l, r)
-
-        # move pivot to beginning of list
-        lst, lst = lst, lst
-
-        # partition
-        i = l
-        for j in xrange(l+1, r+1):
-            if lst < lst:
-                i += 1
-                lst, lst = lst, lst
-
-        # move pivot to correct location
-        lst, lst = lst, lst
-
-        # recursively partition one side only
-        if index == i:
-            return lst
-        elif index < i:
-            return select(lst, l, i-1, index)
-        else:
-            return select(lst, i+1, r, index)
-
-    if items is None or len(items) < 1:
-        return None
-
-    if item_index < 0 or item_index > len(items) - 1:
-        raise IndexError()
-
-    return select(items, 0, len(items) - 1, item_index)
-
+'''
 # Soln 2
 # Python3 program of Quick Select
  
@@ -126,4 +108,5 @@ def RSelect(x,k):
         
 x = [3,1,8,4,7,9]
 for i in range(len(x)):
-    print RSelect(x,i),
+    print RSelect(x,i)
+'''

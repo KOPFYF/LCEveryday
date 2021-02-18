@@ -25,3 +25,21 @@ class Solution:
           
         dfs(root, 0)
         return res
+
+
+class Solution2:
+    # take or to take
+    def pathSum(self, root: TreeNode, sum: int) -> int:
+        return self.helper(root, sum, True)
+
+    def helper(self, root, subtarget, origin):
+        if not root: return 0
+        res = 0
+        if root.val == subtarget:
+            res += 1
+        left = self.helper(root.left, subtarget-root.val, False)
+        right = self.helper(root.right, subtarget-root.val, False)
+        if origin:
+            left += self.helper(root.left, subtarget, origin)
+            right += self.helper(root.right, subtarget, origin)
+        return res + left + right

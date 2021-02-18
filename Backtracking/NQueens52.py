@@ -20,7 +20,9 @@ class Solution:
                 
         dfs(0, set(), set(), set())
         return self.res
-    
+
+class Solution2:
+    def totalNQueens(self, n: int) -> int:    
         # use code from 51
         res = []
         def dfs(path, i, col, diag, adiag):
