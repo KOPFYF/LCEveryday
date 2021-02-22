@@ -1,3 +1,12 @@
+'''
+We divide the sub-problem as self.helper(pattern, str, i, j) to answer if str[j:] follows the same pattern[i:].
+You need to be careful in the backtracking part where you delete ptable and stable. 
+There are two conditions when you proceed with the recursion: 
+when both ptable and stable have the right mapping and when both are empty. 
+In the latter instance, you add the mapping, therefore, you delete only when under those circumstances. 
+Otherwise you can end up with an error.
+'''
+
 class Solution:
     def wordPatternMatch(self, pattern: str, s: str) -> bool:
         return self.dfs2(pattern, s, 0, 0, {}, {})
