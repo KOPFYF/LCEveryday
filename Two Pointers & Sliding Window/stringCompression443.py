@@ -15,6 +15,23 @@ class Solution:
         a   3   c
                new_lag/new_lead
         '''
+        # soln1
+        i, j = 0, 0
+        while j < len(chars):
+            ch, cnt = chars[j], 0
+            while j < len(chars) and chars[j] == ch:
+                j += 1
+                cnt += 1
+            chars[i] = ch
+            i += 1
+            if cnt > 1:
+                for num in str(cnt):
+                    chars[i] = num
+                    i += 1
+        return i
+                
+                
+        # soln2
         lag = lead = 0
         while lead < len(chars):
             while lead < len(chars) and chars[lead] == chars[lag]:
