@@ -3,7 +3,9 @@ class TrieNode():
         self.children = {}
         self.weights = []
 
-# create two Tries, one for prefix search, another one for suffix search, then find the maximal common weight
+# create two Tries, one for prefix search, 
+# another one for suffix search
+# then find the maximal common weight
 class Trie():
     def __init__(self):
         self.root = TrieNode()

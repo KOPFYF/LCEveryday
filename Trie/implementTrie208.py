@@ -23,7 +23,6 @@ class Trie: #  prefix tree(字典🌲)
             node = node.children[ch] # move on to the nxt level
         node.word = True # loop to the end, store the word as true
         
-
     def search(self, word):
         """
         Returns if the word is in the trie.
@@ -37,8 +36,6 @@ class Trie: #  prefix tree(字典🌲)
             node = node.children[ch]
         return node.word
         
-        
-
     def startsWith(self, prefix):
         """
         Returns if there is any word in the trie that starts with the given prefix.

@@ -18,9 +18,7 @@ class WordDictionary:
                 node.children[ch] = TrieNode()
             node = node.children[ch] # move on to the nxt level
         node.word = True # loop to the end, store the word as true
-        
-     
-    # soln 0   
+         
     def search(self, word: str) -> bool:
         def dfs(node, i, word):
             if i == len(word): # base case, word till end(empty)
@@ -34,8 +32,7 @@ class WordDictionary:
                 if word[i] not in node.children:
                     return False
                 else:
-                    return dfs(node.children[word[i]], i + 1, word)
-        
+                    return dfs(node.children[word[i]], i + 1, word)      
         return dfs(self.root, 0, word)
 
     # soln 1
