@@ -11,5 +11,5 @@ class Solution:
             if cur < e: # cmp end time
                 cur = e
                 cnt += 1
-                print(s, e, cur, cnt)
+                # print(s, e, cur, cnt)
         return cnt

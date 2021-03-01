@@ -1,16 +1,31 @@
-class Solution1:
+class Solutiom:
     def minDistance(self, word1: str, word2: str) -> int:
-        # Bottom up 2D DP, time O(n1 * n2), space O(n1 * n2)
-        n1, n2 = len(word1), len(word2)       
-        dp = [[float('inf')] * (n2 + 1) for _ in range(n1 + 1)]
+        # ttop down
+        m , n = len(word1), len(word2)
+        @lru_cache(None)
+        def dfs(i, j):
+            if i == m or j == n:
+                return n - j + m - i
+            
+            if word1[i] == word2[j]:
+                res = dfs(i+1, j+1)
+            else:
+                res = min(dfs(i+1, j+1), dfs(i, j+1), dfs(i+1, j)) + 1
+            return res
         
-        for i in range(n1 + 1):
+        return dfs(0, 0)
+
+        # Bottom up 2D DP, time O(m * n), space O(m * n)
+        m, n = len(word1), len(word2)       
+        dp = [[float('inf')] * (n + 1) for _ in range(m + 1)]
+        
+        for i in range(m + 1):
             dp[i][0] = i
-        for j in range(n2 + 1):
+        for j in range(n + 1):
             dp[0][j] = j
             
-        for i in range(1, n1 + 1):
-            for j in range(1, n2 + 1):
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
                 if word1[i - 1] == word2[j - 1]:
                     dp[i][j] = dp[i - 1][j - 1]
                 else:
@@ -20,7 +35,9 @@ class Solution1:
         return dp[-1][-1]
 
 
-class Solution2(object):
+
+
+class Solution(object):
     def minDistance(self, word1, word2):
         """
         :type word1: str

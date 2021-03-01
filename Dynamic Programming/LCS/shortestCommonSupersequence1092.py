@@ -7,7 +7,7 @@ class Solution(object):
         """
         def lcs(A, B):
             n, m = len(A), len(B)
-            dp = [["" for _ in xrange(m + 1)] for _ in range(n + 1)]
+            dp = [["" for _ in range(m + 1)] for _ in range(n + 1)]
             for i in range(n):
                 for j in range(m):
                     if A[i] == B[j]:
