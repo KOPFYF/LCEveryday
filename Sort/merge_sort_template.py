@@ -17,10 +17,10 @@ def mergeSort(input_array):
         
         while i < len(left) and j < len(right):
             if left[i] < right[j]:
-              # The value from the left half has been used
-              input_array[k] = left[i]
-              # Move the iterator forward
-              i += 1
+                # The value from the left half has been used
+                input_array[k] = left[i]
+                # Move the iterator forward
+                i += 1
             else:
                 input_array[k] = right[j]
                 j += 1
