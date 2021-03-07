@@ -10,8 +10,9 @@ class DistanceLimitedPathsExist:
         self.parents = [parent.copy()]
         self.weights = [0]
 
-        edgeList.sort(key=lambda x: x[2])
+        edgeList.sort(key=lambda x: x[2]) # sort by weight
         for index, (i, j, weight) in enumerate(edgeList):  # for cur weight, connect i,j
+            # print(index, i, j, weight)
             self._union(parent, i, j)
             if index == len(edgeList) - 1 or weight != edgeList[index + 1][2]:
                 # Save a new version

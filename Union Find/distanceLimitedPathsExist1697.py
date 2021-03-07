@@ -6,18 +6,7 @@ class Solution:
         # Sort queries based on weight and sort edges based on weight as well
         edgeList.sort(key=lambda x: x[2]) # sort by weight
         queries = sorted([q + [i] for i, q in enumerate(queries)], key=lambda x: x[2])
-        
-        root = list(range(n))
-        def find(x):
-            if root[x] != x:
-                root[x] = find(root[x])
-            return root[x]
-        
-        def union(x, y):
-            rx, ry = find(x), find(y)
-            if rx != ry:
-                root[ry] = rx
-                return 
+        dsu = DSU(n)
         
         i = 0
         for a, b, limit, idx in queries:
@@ -26,9 +15,27 @@ class Solution:
             # we just need to visit edges once from small distance to large distance.
             while i < len(edgeList) and edgeList[i][2] < limit:
                 x, y, d = edgeList[i]
-                union(x, y)
+                dsu.union(x, y)
                 i += 1
             # Check if nodes p and q are connected in Union-Find structure
-            res[idx] = find(a) == find(b)   
+            res[idx] = dsu.find(a) == dsu.find(b)   
             
         return res
+    
+class DSU:
+    def __init__(self, n):
+        self.parents = [0] * n
+        for i in range(n):
+            self.parents[i] = i
+    
+    def find(self, x):
+        if self.parents[x] != x:
+            self.parents[x] = self.find(self.parents[x])
+        return self.parents[x]
+    
+    def union(self, x, y):
+        if not self.isConnect(x, y):
+            self.parents[self.find(x)] = self.find(y)
+    
+    def isConnect(self, x, y):
+        return self.find(x) == self.find(y)
