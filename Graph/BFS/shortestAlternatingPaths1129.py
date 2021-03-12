@@ -10,7 +10,7 @@ The minimum step to reach 3 is 5 steps, because all intermediate nodes 1 and 2 c
 
 class Solution:
     def shortestAlternatingPaths(self, n: int, red_edges: List[List[int]], blue_edges: List[List[int]]) -> List[int]:
-        # BFS
+        # BFS, O(V+E)/ O(V+E)
         # the maximum result can be n * 2 - 3
         M = 2 * n # max
         graph = [[[], []] for _ in range(n)]
