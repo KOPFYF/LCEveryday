@@ -1,3 +1,4 @@
+class Solution:
     def getSkyline(self, buildings):
         def update(p, h):
             while p > 0: # scope of h is towards left

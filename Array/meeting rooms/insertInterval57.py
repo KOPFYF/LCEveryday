@@ -1,4 +1,19 @@
-class Solution(object):
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        left, right = [], []
+        l, r = newInterval[0], newInterval[1]
+        for s, e in intervals:
+            if e < l: 
+                left.append([s, e])
+            elif s > r:
+                right.append([s, e])
+            else:
+                l = min(l, s)
+                r = max(r, e)
+        return left + [[l, r]] + right
+
+
+class Solution1(object):
     def insert(self, intervals, new):
         """
         :type intervals: List[List[int]]
