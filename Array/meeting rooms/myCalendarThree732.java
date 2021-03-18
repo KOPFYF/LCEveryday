@@ -1,4 +1,5 @@
-class MyCalendarThree {
+// treemap
+class MyCalendarThree1 {
     Map<Integer, Integer> map;
     public MyCalendarThree() {
         map = new TreeMap<>();

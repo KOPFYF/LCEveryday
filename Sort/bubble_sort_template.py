@@ -32,6 +32,19 @@ def bubble_sort(array):
 
     return array
 
-
 A = [1,3,2,0,6,6,5]
-print(bubble_sort(A))
+# print(bubble_sort(A))
+
+
+def bubble_sort_raw(nums):
+    n = len(nums)
+    for i in range(n):
+        for j in range(n - i - 1):
+            print(i, j)
+            if nums[j] > nums[j + 1]:
+                nums[j], nums[j + 1] = nums[j + 1], nums[j]
+    return nums
+
+B = [1,2,3,4,5,6]
+print(bubble_sort_raw(B))
+
