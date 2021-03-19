@@ -112,3 +112,45 @@ class Solution2:
          
         return res
     
+class Solution3(object):
+    def findMaximumXOR(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        trie = Trie()
+        for num in nums:
+            trie.insert(num)
+        
+        res = 0
+        for num in nums:
+            res = max(res, trie.search(num))
+        return res
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def insert(self, num):
+        node = self.root
+        for i in range(31, -1, -1):
+            cur = (num >> i) & 1
+            if cur not in node.children:
+                node.children[cur] = TrieNode()
+            node = node.children[cur]
+    
+    def search(self, num):
+        res = 0
+        node = self.root
+        for i in range(31, -1, -1):
+            cur = (num >> i) & 1
+            if 1 - cur in node.children:
+                node = node.children[1 - cur]
+                res += (1 << i)
+            else:
+                node = node.children[cur]
+        return res
