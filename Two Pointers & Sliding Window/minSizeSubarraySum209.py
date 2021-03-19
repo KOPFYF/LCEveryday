@@ -5,6 +5,17 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        i = cum = 0
+        res = float('inf')
+        for j in range(len(nums)):
+            cum += nums[j]
+            while cum >= s:
+                res = min(j - i + 1, res)
+                cum -= nums[i]
+                i += 1
+        return 0 if res == float('inf') else res
+
+        
         # Sliding Window, time O(n) space O(1)
         i, res = 0, len(nums) + 1 # if not into the loop, will return 0
         
