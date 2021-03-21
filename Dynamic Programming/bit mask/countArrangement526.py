@@ -1,6 +1,37 @@
 '''
 Backtracking is O(n!)
 dp O(n*2^n) 
+
+Start From Position 1 - N
+Check which values are not yet assigned( By the field Bitmask) , ```if(getBit(mask,i)==0)
+Check if this position is beautiful. ```if((i+1)%(pos+1)==0 ||(pos+1)%(i+1)==0)
+If Yes, call next position with updated mask.
+'''
+
+class Solution:
+    def countArrangement(self, N: int) -> int:
+        # dp bit mask
+        n = N
+        @lru_cache(None)
+        def dfs(pos, mask):
+            # convert 0000 to 1111
+            if pos == n:
+                return 1
+            
+            res = 0
+            for i in range(n):
+                if mask & (1 << i):
+                    continue # skip used bit
+                if (i + 1) % (pos + 1) == 0 or (pos + 1) % (i + 1) == 0:
+                    res += dfs(pos + 1, mask ^ (1 << i))
+            return res
+        
+        return dfs(0, 0)
+
+
+'''
+Backtracking is O(n!)
+dp O(n*2^n) 
 '''
 
 class Solution:
