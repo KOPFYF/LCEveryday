@@ -6,12 +6,12 @@ class Solution:
         for ch in s:
             if ch == '[':
                 stack.append((cur, num))
-                num = ""
+                num = "" # for nested
                 cur = ""
             elif ch == ']':
                 prev, num = stack.pop()
                 cur = prev + int(num) * cur
-                num = ""
+                num = "" # reset immediately
             elif ch.isdigit():
                 num += ch
             else:

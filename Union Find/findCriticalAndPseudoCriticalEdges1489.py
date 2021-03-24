@@ -1,5 +1,32 @@
 class Solution:
     def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+        edges = [(u, v, w, i) for i, (u, v, w) in enumerate(edges)]
+        edges.sort(key=lambda x: x[2]) # O(ElogE)   
+        
+        critial, pseudo = [], []
+        for iu, iv, iw, i in edges:
+            dsu1, dsu2 = DSU(n), DSU(n)
+            dsu1.union(iu, iv) # use this edge in dsu1 but not dsu2
+            s1, s2 = iw, 0
+            for u, v, w, j in edges:
+                if i == j:
+                    continue
+                if not dsu1.isConnect(u, v):
+                    dsu1.union(u, v)
+                    s1 += w
+                if not dsu2.isConnect(u, v):
+                    dsu2.union(u, v)
+                    s2 += w
+            if s1 == s2:
+                pseudo.append(i)
+            elif s1 < s2 or not dsu2.isConnect(iu, iv): # corner case: dsu2 still needs (iu, iv)
+                critial.append(i)
+            # actually there is a third case, edge is not in MST
+        return [critial, pseudo]
+        
+
+class Solution_long:
+    def findCriticalAndPseudoCriticalEdges(self, n: int, edges: List[List[int]]) -> List[List[int]]:
         # O(ElogE + E^2)
         edges = [(u, v, w, i) for i, (u, v, w) in enumerate(edges)]
         edges.sort(key=lambda x: x[2]) # O(ElogE)

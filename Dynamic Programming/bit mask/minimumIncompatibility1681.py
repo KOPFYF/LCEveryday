@@ -22,7 +22,7 @@ class Solution:
         return min(dp[-1]) if min(dp[-1]) != float("inf") else -1
         
         
-        # TLE for top down
+        # TLE for top down !!
         n = len(nums)
         size = n // k
         

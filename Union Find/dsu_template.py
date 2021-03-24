@@ -1,3 +1,17 @@
+class DSU:
+    def __init__(self, n):
+        self.parents = list(range(n))
+
+    def find(self, x):
+        if self.parents[x] != x:
+            self.parents[x] = self.find(self.parents[x])
+        return self.parents[x]
+
+    def union(self, x, y):
+        px, py = self.find(x), self.find(y)
+        self.parents[px] = py
+
+
 class DSU1(object):
     # just path compression
     def __init__(self, n):

@@ -1,4 +1,33 @@
-class Solution:
+class Solution(object):
+    def getSkyline(self, buildings):
+        """
+        :type buildings: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        events = [(l, -h, r) for l, r, h in buildings] # up
+        events += list(set((r, 0, 0) for _, r, _ in buildings)) # down
+        events.sort() # sort by start pos inc, height dec
+        
+        res = [[0, 0]] # [x, height]
+        hq = [(0, float("inf"))] # (-height, end pos)
+        
+        for l, neg_h, r in events:
+            # 1, pop buildings that are already ended
+            while l >= hq[0][1]:
+                heapq.heappop(hq)
+                
+            # 2, if it's the start-building event, make the building alive
+            if neg_h:
+                heapq.heappush(hq, (neg_h, r))
+            
+            # 3, if previous keypoint height != current highest height, add the result
+            if res[-1][1] != -hq[0][0]:
+                res.append([l, -hq[0][0]])
+        
+        return res[1:]
+        
+
+class Solution1:
     def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
         # max heap
         # add start-building events

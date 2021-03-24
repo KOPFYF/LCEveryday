@@ -4,30 +4,29 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        # 2 pointers, fix i and reduce to 2 sum
+        # 2 pointers, O(n^2) fix i and reduce to 2 sum
         # nums[j] + nums[k] = - nums[i],  0 <= i < j < k < n
-        res = []
         nums.sort()
-        if len(nums) < 3:
-            return res
-
-        for i in range(len(nums) - 2):
-            if i > 0 and nums[i] == nums[i-1]: 
-                continue # dedup i
-            l, r = i + 1, len(nums) - 1
-            while l < r :
-                s = nums[i] + nums[l] + nums[r]
-                if s == 0:
-                    res.append([nums[i] ,nums[l] ,nums[r]])
-                    l += 1
-                    r -= 1
-                    while l < r and nums[l] == nums[l - 1]: 
-                        l += 1 # dedup j
-                    while l < r and nums[r] == nums[r + 1]: 
-                        r -= 1 # dedup k
-                elif s < 0 :
-                    l += 1
+        res, n, target = [], len(nums), 0
+        if n < 3: return []
+        
+        for i in range(n - 2):
+            if i and nums[i] == nums[i - 1]:
+                continue
+            j, k = i + 1, n - 1
+            while j < k:
+                s = nums[i] + nums[j] + nums[k]
+                if s == target:
+                    res.append([nums[i], nums[j], nums[k]])
+                    j += 1
+                    k -= 1
+                    while j < k and nums[j] == nums[j - 1]: 
+                        j += 1 # dedup j
+                    while j < k and nums[k] == nums[k + 1]: 
+                        k -= 1 # dedup k
+                elif s < target:
+                    j += 1
                 else:
-                    r -= 1
-        return res  
+                    k -= 1
+        return res 
         

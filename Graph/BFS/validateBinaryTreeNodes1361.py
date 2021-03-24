@@ -1,0 +1,48 @@
+class Solution:
+    def validateBinaryTreeNodes(self, n: int, leftChild: List[int], rightChild: List[int]) -> bool:
+        # find the root node, assume root is node(0) by default
+		# a node without any parent would be a root node
+		# note: if there are multiple root nodes => 2+ trees
+		root = 0
+		childrenNodes = set(leftChild + rightChild)
+		for i in range(n):
+			if i not in childrenNodes:
+				root = i
+		
+		visited = set()
+		queue = deque([root])
+		
+		while queue:
+			node = queue.popleft()
+			if node in visited:
+				return False
+			
+			visited.add(node)
+			if leftChild[node] != -1:
+				queue.append(leftChild[node])
+			if rightChild[node] != -1:
+				queue.append(rightChild[node])
+				
+		# number of visited nodes == given number of nodes
+		# if n != len(visited) => some nodes are unreachable/multiple different trees
+		return len(visited) == n
+    
+        # topo sort
+        indegree = [0] * n
+        for left, right in zip(leftChild, rightChild):
+            if left > -1: indegree[left] += 1
+            if right > -1: indegree[right] += 1
+            if indegree[left] > 1 or indegree[right] > 1: return False
+        queue = collections.deque(i for i, d in enumerate(indegree) if d == 0)
+        if len(queue) > 1: return False
+        while queue:
+            node = queue.popleft()
+            for child in leftChild[node], rightChild[node]:
+                if child == -1: continue
+                indegree[child] -= 1
+                if indegree[child] == 0: queue.append(child)
+        return sum(indegree) == 0
+                
+            
+            
+        
