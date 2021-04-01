@@ -6,15 +6,6 @@ class Solution(object):
         :type K: int
         :rtype: int
         """
-        # bellman-ford (relax edge) Time: average O(E), worst O(VE) Space: O(V+E)
-        dist = [float('inf') for _ in range(N)]
-        dist[K - 1] = 0
-        for _ in range(N - 1): # for each vertex
-            for u, v, w in times: # for each edge
-                if dist[u - 1] + w < dist[v - 1]:
-                    dist[v - 1] = dist[u - 1] + w
-        return max(dist) if max(dist) < float('inf') else -1
-    
         # Dijkstra， time O(E+VlogV), space O(V+E)
         weight = collections.defaultdict(dict)
         for u, v, w in times:
@@ -28,6 +19,16 @@ class Solution(object):
                 for v in weight[u]:
                     heapq.heappush(heap, (dist[u] + weight[u][v], v))
         return max(dist.values()) if len(dist) == N else -1
+
+
+        # bellman-ford (relax edge) Time: average O(E), worst O(VE) Space: O(V+E)
+        dist = [float('inf') for _ in range(N)]
+        dist[K - 1] = 0
+        for _ in range(N - 1): # for each vertex
+            for u, v, w in times: # for each edge
+                if dist[u - 1] + w < dist[v - 1]:
+                    dist[v - 1] = dist[u - 1] + w
+        return max(dist) if max(dist) < float('inf') else -1
     
     
         # Floyd-Warshall, Time: O(V^3), Space: O(V^2)

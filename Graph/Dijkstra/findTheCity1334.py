@@ -36,6 +36,8 @@ class Solution:
                         dist[v] = d + w
             return len(dist)
 
+        return max([(dijkstra(city), city) for city in range(n)], key=lambda x: (-x[0], x[1]))[-1]
+
         # cache dist when node is popped out of the heap  
         # when popped out, the dist is guranteed to be the optimal/smallest  
         def dijkstra(city):
