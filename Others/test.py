@@ -1,3 +1,5 @@
+print((-1)%3)
+
 class Solution:
     def maximumScore(self, nums: List[int], k: int) -> int:
         ans = mn0 = mn1 = nums[k]
