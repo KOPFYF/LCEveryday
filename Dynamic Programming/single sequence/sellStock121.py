@@ -4,7 +4,15 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
-        # compress state to O(1)
+        # Template but slow, j = 2 & k = 1
+        dp = [[0] * 2 for _ in range(len(prices))]
+        dp[0][0] = -prices[0]
+        for i in range(1, len(prices)):
+            dp[i][0] = max(0 - prices[i], dp[i-1][0])
+            dp[i][1] = max(dp[i-1][0] + prices[i], dp[i-1][1])
+        return max(dp[-1])
+            
+        # compress state
         if len(prices) ==0:
             return 0
         profit = 0
@@ -14,8 +22,7 @@ class Solution(object):
             minPrice = min(minPrice, prices[i])
         # print(dp)
         return profit
-
-        # O(n)/O(n)
+    
         if len(prices) ==0:
             return 0
         dp = [0] * len(prices)
@@ -23,4 +30,8 @@ class Solution(object):
         for i in range(len(prices)):
             dp[i] = max(dp[i - 1], prices[i] - minPrice)
             minPrice = min(minPrice, prices[i])
+        # print(dp)
         return dp[-1]
+    
+        
+        
