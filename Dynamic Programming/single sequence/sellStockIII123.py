@@ -11,8 +11,7 @@ class Solution:
             sell1 = max(buy1 + prices[i], sell1)
             buy2 = max(sell1 - prices[i], buy2)
             sell2 = max(buy2 + prices[i], sell2)
-        
-        # print(dp)
+
         return max(sell2, 0) # no need to complete 2 trans
     
         # O(n)/O(n)
@@ -28,8 +27,7 @@ class Solution:
             dp[i][1] = max(dp[i - 1][0] + prices[i], dp[i - 1][1])
             dp[i][2] = max(dp[i - 1][1] - prices[i], dp[i - 1][2])
             dp[i][3] = max(dp[i - 1][2] + prices[i], dp[i - 1][3])
-        
-        # print(dp)
+
         return max(dp[-1] + [0]) # no need to complete 2 trans
 
 
