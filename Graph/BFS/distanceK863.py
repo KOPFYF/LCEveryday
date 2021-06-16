@@ -7,13 +7,14 @@
 
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, K: int) -> List[int]:
+        # DFS to build graph, then BFS to do level traverse
         graph = defaultdict(list)
         def dfs(node, graph):
             if not node:
                 return 
             if node.left:
-                graph[node.val].append(node.left.val)
-                graph[node.left.val].append(node.val)
+                graph[node.val].append(node.left.val) # undirected edge
+                graph[node.left.val].append(node.val) # undirected edge
                 dfs(node.left, graph)
             if node.right:
                 graph[node.val].append(node.right.val)
@@ -24,7 +25,7 @@ class Solution:
         
         bfs = [target.val]
         level = 0
-        seen = set([target.val])
+        seen = set([target.val]) # the starting node is the target, it is the root
         while bfs:
             nxt_bfs = []
             if level == K:
@@ -37,9 +38,3 @@ class Solution:
             bfs = nxt_bfs
             level += 1
         return []
-                
-            
-            
-            
-                
-            
