@@ -9,38 +9,12 @@ class Node:
 
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
-        # inorder traversal sol - recursion 
-        if not root:
-            return
-        self.head, self.prev = None, None
-        
-        self.inorder(root)
-        # print(self.head.val, self.prev.val) # 1, 5
-        self.prev.right = self.head
-        self.head.left = self.prev
-        return self.head
-        
-    def inorder(self, cur):
-        if not cur:
-            return
-        self.inorder(cur.left)
-        if self.prev:
-            self.prev.right = cur
-            cur.left = self.prev
-        else: 
-            # at the head, prev inited as none
-            self.head = cur
-        self.prev = cur
-        # print(self.prev.val)
-        self.inorder(cur.right)
-
-
-class Solution2:
-    def treeToDoublyList(self, root):
+        # iteration
         if not root: return
         dummy = Node(0, None, None)
         prev = dummy
         stack, node = [], root
+        # inorder
         while stack or node:
             while node:
                 stack.append(node)
@@ -50,3 +24,27 @@ class Solution2:
             node = node.right
         dummy.right.left, prev.right = prev, dummy.right
         return dummy.right
+
+
+class Solution2:
+    def treeToDoublyList(self, root: 'Node') -> 'Node':        
+        # recursion
+        if not root:
+            return None
+        
+        self.dummy = Node(-1)
+        self.prev = self.dummy
+        self.inorder(root)
+        
+        # connect 1 and 5, dummy.right = 1, after dfs, prev = 5
+        self.dummy.right.left, self.prev.right = self.prev, self.dummy.right
+        return self.dummy.right
+    
+    def inorder(self, root):
+        if not root:
+            return 
+        self.inorder(root.left)
+        # connect 1-2-3-4-5 bidirectinally using inorder traverse
+        self.prev.right, root.left, self.prev = root, self.prev, root
+        self.inorder(root.right)
+        

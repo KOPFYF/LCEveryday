@@ -1,6 +1,6 @@
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        # stack
+        # stack, dfs in iteration
         graph = collections.defaultdict(list)
         for src, des in tickets:
             graph[src].append(des)
