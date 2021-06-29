@@ -13,7 +13,6 @@ we can use len(arr) as the index of its next smaller element.
 
 '''
 
-
 class Solution:
     def validSubarrays(self, nums: List[int]) -> int:
         stack = [] # mono inc stack, next smaller element
@@ -44,4 +43,3 @@ class Solution1:
 
         return res
 
-        

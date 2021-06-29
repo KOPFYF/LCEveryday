@@ -38,7 +38,8 @@ class Solution:
         memo[(i, j)] = res
         return memo[(i, j)]
 
-class Solution:
+
+class Solution_top_down:
     def minimumMoves(self, A: List[int]) -> int:
         @lru_cache(None)
         def dp(i, j):
@@ -53,7 +54,7 @@ class Solution:
         return dp(0, len(A) - 1)
 
 
-class Solution2(object):
+class Solution_bottom_up(object):
     def minimumMoves(self, arr):
         """
         :type arr: List[int]

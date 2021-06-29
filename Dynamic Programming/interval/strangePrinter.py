@@ -16,6 +16,8 @@ class Solution(object):
             for k in range(i + 1, j + 1): 
                 # search range [i + 1 ... j]
                 # 0 <= i < k <= j < n
+                # a b a c c c
+                # i   k     j
                 if s[k] == s[i]:
                     res = min(res, dfs(i, k - 1) + dfs(k + 1, j))
             memo[(i, j)] = res

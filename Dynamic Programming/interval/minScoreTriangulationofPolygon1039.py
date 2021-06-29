@@ -3,6 +3,10 @@ class Solution(object):
         """
         :type A: List[int]
         :rtype: int
+        If we pick a side of our polygon, it can form n - 2 triangles. 
+        Each such triangle forms 2 sub-polygons. 
+        We can analyze n - 2 triangles, 
+        and get the minimum score for sub-polygons using the recursion.
         """
         # top down DP
         memo = {}

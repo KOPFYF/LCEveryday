@@ -9,7 +9,7 @@ class Solution(object):
         # reverse thinking: assume that the balloon k we have chosen as the last to get burst
         # so it gets multiplied by the boundary elements of the array under consideration
         
-        # top-down DP, time O(n^3) space O(n^2)
+        # top-down DP, time O(n^3) space O(n^2), was ok but TLE in June 2021
         A = [1] + nums + [1]
         n = len(A)
         dp = [[0] * n for _ in range(n)]

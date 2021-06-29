@@ -13,6 +13,7 @@ class Solution0:
         
         return dfs(amount, 0)
 
+
 class Solution1:
     def change(self, amount: int, coins: List[int]) -> int:        
         # Bottom up     
