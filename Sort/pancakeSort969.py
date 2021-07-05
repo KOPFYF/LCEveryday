@@ -14,10 +14,23 @@ class Solution:
         # (x b a) (c d)
         # d c a b x
         res = []
+        n = len(A)
+        for x in range(n, 1, -1):
+            i = A.index(x)
+            A[:i+1] = A[:i+1][::-1]
+            res.append(i + 1)
+            A = A[::-1][:-1]
+            res.append(x)
+        return res
+        
+        
+        res = []
         for x in range(len(A), 1, -1):
+            # print(len(A))
             i = A.index(x)
             res.extend([i + 1, x])
-            A = A[:i:-1] + A[:i]
+            # A = A[:i:-1] + A[:i]
+            A = A[i+1:][::-1] + A[:i]
         return res
     
         res = []

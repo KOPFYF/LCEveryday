@@ -1,6 +1,5 @@
 class Solution:
-    def mctFromLeafValues(self, arr: List[int]) -> int:
-        
+    def mctFromLeafValues(self, arr: List[int]) -> int: 
         # DP, time O(n^3), space O(n^2)
         # dp(i, j) is the answer for the subarray arr[i]..arr[j]
         # For each possible way to partition the subarray i <= k < j

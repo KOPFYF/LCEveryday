@@ -6,35 +6,31 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
+        def dfs(node, curmax):
+            if not node:
+                return 0
+            res = 0
+            if node.val >= curmax: # no nodes with a value greater than X
+                res = 1
+            else:
+                res = 0
+            curmax = max(node.val, curmax)
+            return res + dfs(node.left, curmax) + dfs(node.right, curmax)
+        
+        return dfs(root, root.val)
+        
+        
+class Solution1:
+    def goodNodes(self, root: TreeNode) -> int:        
         self.res = 0
-        def dfs(node, mx):
+        def dfs(node, curmax):
             if not node:
                 return
-            if node.val >= mx:
+            if node.val >= curmax: # no nodes with a value greater than X
                 self.res += 1
-                # print(node.val)
-            mx = max(node.val, mx)
-            dfs(node.left, mx)
-            dfs(node.right, mx)
-        
-        dfs(root, -10001)
+            curmax = max(node.val, curmax)
+            dfs(node.left, curmax)
+            dfs(node.right, curmax)
+            
+        dfs(root, root.val)
         return self.res
-                
-
-class Solution2(object):
-    def goodNodes(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
-        return self.helper(root, -10001)
-        
-    def helper(self, root, ma):
-
-        if not root: 
-            return 0
-        
-        res = (root.val >= ma)
-        res += self.helper(root.left, max(root.val, ma))
-        res += self.helper(root.right, max(root.val, ma))
-        return res

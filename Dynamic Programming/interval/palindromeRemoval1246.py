@@ -56,10 +56,6 @@ class Solution_top_down:
 
 class Solution_bottom_up(object):
     def minimumMoves(self, arr):
-        """
-        :type arr: List[int]
-        :rtype: int
-        """
         dp = [[0] * len(arr) for _ in range(len(arr))]
         for j in range(len(arr)):
             for i in range(j, -1, -1):
@@ -70,3 +66,5 @@ class Solution_bottom_up(object):
                     r = min(r, dp[i][k] + dp[k+1][j])
                 dp[i][j] = r
         return dp[0][len(arr)-1]
+
+        

@@ -1,18 +1,39 @@
 class Solution:
     def minDifficulty(self, job: List[int], d: int) -> int:
-        # top down
-        # i is the index of the last cut, j is the remaining days
+        # top down 1, right to left
+        # i is the index of the last cut, k is the remaining cut
         n = len(job)
         if n < d: return -1
         
         @lru_cache(None)
-        def dfs(i, j):
-            if j == 1:
+        def dfs(i, k):
+            # s[j:i] + dfs(j, k - 1)
+            if k == 1:
+                return max(job[:i])
+            res, maxd = float('inf'), 0
+            for j in range(i - 1, 0, -1):
+                maxd = max(maxd, job[j])
+                res = min(res, maxd + dfs(j, k - 1))
+            return res
+        
+        return dfs(len(job), d)
+        
+        
+        # top down 2, left to right
+        # i is the index of the last cut, k is the remaining cut
+        n = len(job)
+        if n < d: return -1
+        
+        @lru_cache(None)
+        def dfs(i, k):
+            # s[:i] + s[i:j]
+            if k == 1:
                 return max(job[i:])
             res, maxd = float('inf'), 0
-            for k in range(i, n - j + 1):
-                maxd = max(maxd, job[k])
-                res = min(res, maxd + dfs(k + 1, j - 1))
+            # call dfs(j, k - 1) and eval job[i:j] j <= n - k
+            for j in range(i, n - k + 1):
+                maxd = max(maxd, job[j])
+                res = min(res, maxd + dfs(j + 1, k - 1))
             return res
         
         return dfs(0, d)

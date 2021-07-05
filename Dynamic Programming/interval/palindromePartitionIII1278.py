@@ -14,3 +14,44 @@ class Solution:
                     res = min(dfs(s[:i], 1) + dfs(s[i:], k - 1), res)
             return res
         return dfs(s, k)
+
+
+
+class Solution2:
+    def palindromePartition(self, s: str, k: int) -> int:
+        n = len(s)
+        if n <= k:
+            return 0
+        
+        cost = [[0] * n for _ in range(n)]
+        dp = [[0] * n for _ in range(k+1)]
+        
+        for i in range(n):
+            cost[i][i] = 0
+        
+        for i in range(n):
+            for j in range(n):
+                cost[i][j] = self.get_cost(s, i, j)
+        
+        # Split array 
+        for i in range(n):
+            dp[1][i] = cost[0][i]
+        
+        for i in range(2, k+1):
+            for end in range(i-1, n):
+                min_cost = float('inf')
+                for split in range(end - 1, i - 3, -1):
+                    min_cost = min(min_cost, dp[i-1][split] + cost[split+1][end])
+                
+                dp[i][end] = min_cost
+        
+        return dp[k][n-1]
+        
+    def get_cost(self, s, i, j):
+        cost = 0
+        while i < j:
+            if s[i] != s[j]:
+                cost += 1
+            i += 1
+            j -= 1
+        return cost
