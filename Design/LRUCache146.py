@@ -1,3 +1,88 @@
+class DLinkedlist:
+    def __init__(self, key, value, prev=None, next=None):
+        self.key = key
+        self.value = value
+        
+class LRUCache:
+    # Space O(capacity), each function O(1), July 7 2021
+
+    def __init__(self, capacity: int):
+        self.head = DLinkedlist(-1, -1)
+        self.tail = DLinkedlist(-1, -1)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        
+        self.capacity = capacity
+        self.size = 0
+        self.cache = {}
+        
+
+    def get(self, key: int) -> int:
+        # Return the value of the key if the key exists, otherwise return -1
+        if key in self.cache:
+            node = self.cache[key]
+            self.remove_to_head(node)
+            return node.value
+        else:
+            return -1
+        
+    def remove_to_head(self, node):
+        # O(1)
+        # 1. remove the node
+        # 2. put the node to the head
+        self.remove(node)
+        self.add(node)
+        
+    def remove(self, node):
+        # 1. remove the node in the middle, O(1)
+        pre = node.prev
+        nxt = node.next
+        pre.next = nxt
+        nxt.prev = pre
+        
+        
+    def add(self, node):
+        # put the node to the head, O(1)
+        tmp = self.head.next
+        tmp.prev = node
+        node.next = tmp
+        self.head.next = node
+        node.prev = self.head
+        
+         
+    def put(self, key: int, value: int) -> None:
+        # O(1)
+        # Update the value of the key if the key exists. 
+        if key in self.cache:
+            node = self.cache[key]
+            node.value = value
+            self.remove_to_head(node)
+        # Otherwise, add the key-value pair to the cache. 
+        else:
+            node = DLinkedlist(key, value)
+            self.cache[key] = node
+            self.add(node)
+            # If the number of keys exceeds the capacity from this operation, evict the least recently used key.
+            self.size += 1
+            if self.size > self.capacity:
+                tail = self.pop_tail()
+                self.size -= 1
+                del self.cache[tail.key]
+                
+                
+    def pop_tail(self):
+        # remove the tail node, O(1)
+        tail = self.tail.prev
+        self.remove(tail)
+        return tail
+        
+        # tail2nd = tail.prev
+        # tail2nd.next = self.tail
+        # self.tail.prev = tail2nd
+        # return tail
+
+
+
 class Node:
     def __init__(self, k, v):
         self.key = k

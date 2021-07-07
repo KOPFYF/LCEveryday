@@ -1,49 +1,44 @@
 class Solution:
-    def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:   
-        dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-        cnt = len(positions)
-        dsu = DSU(m * n, cnt)
-        
+    def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
         res = []
-        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-        for x, y in positions:
-            index = x * n + y # flatten a 2d coordinate into a 1d value
-            dsu.setParent(index)
-            for dx, dy in directions:
+        dsu = DSU(m * n)
+        grid = [[0] * n for _ in range(m)]
+        def dfs(x, y):
+            for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
                 nx, ny = x + dx, y + dy
-                if 0 <= nx < m and 0 <= ny < n and nx * n + ny in dsu.parents:
-                    dsu.Union(index, nx * n + ny)
-            res.append(dsu.count)
+                if 0 <= nx < m and 0 <= ny < n and grid[nx][ny]:
+                    dsu.union(x * n + y, nx * n + ny)
+            res.append(dsu.cnt) # append result for current position
+        
+        for x, y in positions:
+            if grid[x][y] == 0:
+                grid[x][y] = 1
+                dsu.cnt += 1 # assume x, y is a new island
+                dfs(x, y) # if x, y is connected, cnt-- so it does not hurt
+            else: # it's set before so cnt does not change
+                res.append(dsu.cnt)
         return res
+            
         
-class DSU(object):
-    # Union by size
-    def __init__(self, n, cnt):
-        self.parents = [0] * n
-        self.size = [1] * n
-        for i in range(n):
-            self.parents[i] = i
-        self.count = cnt # add a count here!
+class DSU:
+    def __init__(self, n):
+        self.parents = list(range(n))
+        self.cnt = 0 # cnt++ when we meet a new island, cnt-- when we union
         
-    
+    def union(self, x, y):
+        if not self.isconnected(x, y):
+            px, py = self.find(x), self.find(y)
+            self.parents[py] = px
+            self.cnt -= 1
+            
     def find(self, x):
-        # Path compression
-        if self.parents[x] != x: # if x is nott root
-            self.parents[x] = self.find(self.parents[x]) # recursion
+        if self.parents[x] != x:
+            self.parents[x] = self.find(self.parents[x])
         return self.parents[x]
     
-    def union(self, x, y):
-        rootx, rooty = self.find(x), self.find(y)
-        if rootx == rooty:
-            return
-        if self.size[rootx] <= self.size[rooty]:
-            self.parents[rootx] = rooty
-            self.size[rooty] += self.size[rootx]
-        else:
-            self.parents[rooty] = rootx
-            self.size[rootx] += self.size[rooty]
-        # if union success, cnt -= 1
-        self.count -= 1
+    def isconnected(self, x, y):
+        return self.find(x) == self.find(y)
+
 
 # Shorter
 class Solution2:

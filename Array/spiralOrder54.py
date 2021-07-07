@@ -29,3 +29,25 @@ class Solution:
             if l > r: break
             
         return res
+
+
+class Solution1(object):
+    def spiralOrder(self, matrix):
+        arr = []
+        while matrix:
+            #extend the top row
+            arr.extend(matrix.pop(0))
+            #extend the right colomn
+            if matrix:
+                for i in range(len(matrix)):
+                    if matrix[i]:
+                        arr.append(matrix[i].pop())
+            #extend the bottom row
+            if matrix:
+                arr.extend(matrix.pop()[::-1])
+            #extend the left colomn
+            if matrix:
+                for i in range(len(matrix)-1,-1,-1):
+                    if matrix[i]:
+                        arr.append(matrix[i].pop(0))
+        return arr
