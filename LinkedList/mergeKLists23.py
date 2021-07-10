@@ -15,7 +15,7 @@ class Solution:
         return self.merge(l, r)
     
     def merge(self, l, r):
-        # merge 2 linked list, O(l1 + l2)
+        # merge 2 linked list iteratively, O(l1 + l2)
         dummy = cur = ListNode()
         while l and r:
             if l.val < r.val:
@@ -29,13 +29,15 @@ class Solution:
         return dummy.next
     
     def merge1(self, l, r):
+        # merge 2 linked list recursively
         if not l or not r:
             return l or r
-        if l.val< r.val:
+        if l.val < r.val:
             l.next = self.merge(l.next, r)
             return l
-        r.next = self.merge(l, r.next)
-        return r
+        else:
+            r.next = self.merge(l, r.next)
+            return r
         
         
         # heap
