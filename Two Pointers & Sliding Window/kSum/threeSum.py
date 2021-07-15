@@ -1,3 +1,34 @@
+class Solution0:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        def twoSum(nums, i, target):
+            j = len(nums) - 1
+            while i < j:
+                if nums[i] + nums[j] + target == 0:
+                    res.append([target, nums[i], nums[j]])
+                    # must not contain duplicate triplets
+                    while i < j and nums[i + 1] == nums[i]:
+                        i += 1
+                    while i < j and nums[j - 1] == nums[j]:
+                        j -= 1
+                    i += 1
+                    j -= 1
+                elif nums[i] + nums[j] + target < 0:
+                    i += 1
+                else:
+                    j -= 1
+        
+        res = []
+        nums.sort()
+        for i, num in enumerate(nums):
+            if num > 0:
+                # current num is pos, no way
+                return res
+            if i > 0 and nums[i - 1] == num:
+                continue
+            twoSum(nums, i + 1, num)
+        return res
+
+
 class Solution(object):
     def threeSum(self, nums):
         """
