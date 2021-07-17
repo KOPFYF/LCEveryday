@@ -28,6 +28,7 @@ class Solution:
             maxleft = max(maxleft, A[i])  
             if maxleft <= minright[i+1]:
                 return i+1
+        
         # 3 pass
         maxleft = [A[0]]*len(A)
         for i in range(1,len(A)):

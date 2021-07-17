@@ -4,7 +4,60 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
+
+
+class Solution0:
+    def flatten(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        # right child pointer points to the next node
+        # left child pointer is always null
+        # https://www.youtube.com/watch?v=v2ob-ek9TgE, stack
+        if not root:
+            return
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+            
+            if stack:
+                node.right = stack[-1]
+            node.left = None
+
+
+class Solution1:
+    def flatten(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        # right child pointer points to the next node
+        # left child pointer is always null
+        if not root:
+            return
+        
+        #reformat left first
+        self.flatten(root.left)
+        self.flatten(root.right)
+        
+        temp_right_node = root.right
+        root.right = root.left
+        root.left = None
+        right_last_node = root
+            
+        while right_last_node.right != None:
+            right_last_node = right_last_node.right
+        
+        right_last_node.right = temp_right_node
+        root.left = None
+
+
+
+
+class Solution2:
     def flatten(self, root: TreeNode) -> None:
         """
         Do not return anything, modify root in-place instead.
@@ -12,7 +65,8 @@ class Solution:
         # reverse preorder traversal, like a bottom up
         self.prev = None
         def helper(root):
-            if not root: return []
+            if not root: 
+                return []
             helper(root.right)
             helper(root.left)
             
