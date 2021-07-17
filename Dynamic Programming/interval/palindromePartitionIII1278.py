@@ -38,12 +38,12 @@ class Solution2:
             dp[1][i] = cost[0][i]
         
         for i in range(2, k+1):
-            for end in range(i-1, n):
+            for j in range(i-1, n):
                 min_cost = float('inf')
-                for split in range(end - 1, i - 3, -1):
-                    min_cost = min(min_cost, dp[i-1][split] + cost[split+1][end])
+                for split in range(j - 1, i - 3, -1):
+                    min_cost = min(min_cost, dp[i-1][split] + cost[split+1][j])
                 
-                dp[i][end] = min_cost
+                dp[i][j] = min_cost
         
         return dp[k][n-1]
         
