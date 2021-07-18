@@ -31,6 +31,21 @@ class Solution_bitmask_top_down:
                         res = True
                         break
             return res
+
+        @lru_cache(None)
+        def dfs1(mask, target):
+            if target < 0:
+                return False
+            if mask == 0:
+                return target == 0
+            if target == 0:
+                return dfs1(mask, s // k) # reset
+            
+            for i in range(n):
+                if mask & (1 << i): # i is not taken
+                    if dfs1(mask ^ (1 << i), target - nums[i]):
+                        return True
+            return False
         
         return dfs((1 << n) - 1, s // k)
 

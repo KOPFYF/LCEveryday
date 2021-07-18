@@ -17,7 +17,17 @@ class Solution(object):
                 curend = curmax # exhausted
         return jumps
         
+        # Same as 763. Partition Labels
+        if len(nums) <= 1: return 0
+        res = 1
+        l, r = 0, nums[0] # initial reachable range
         
+        while r < len(nums) - 1:
+            res += 1
+            nxt = max(i + nums[i] for i in range(l, r+1))
+            l, r = r, nxt
+        
+        return res
         
         # O(n^2) DP, TLE, 1 <= nums.length <= 104
         n = len(nums)

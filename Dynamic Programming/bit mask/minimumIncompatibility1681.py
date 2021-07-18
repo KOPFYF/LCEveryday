@@ -1,3 +1,25 @@
+class Solution0:
+    def minimumIncompatibility(self, nums: List[int], k: int) -> int:
+        d = len(nums) // k # the length of each partition, nums.length is divisible by k
+        
+        @lru_cache(None)
+        def dfs(nums):
+            if not nums:
+                return 0
+            res = float('inf')
+            for combs in combinations(nums, d):
+                if len(combs) != len(set(combs)):
+                    continue
+                nxt_nums = list(nums)
+                for cand in combs:
+                    nxt_nums.remove(cand)
+                res = min(res, max(combs) - min(combs) + dfs(tuple(nxt_nums)))
+            return res
+        
+        ans = dfs(tuple(nums)) # turn the input into a tuple so the function can be cached
+        return ans if ans != float('inf') else -1
+
+
 '''
 bit mask O(n*n 2^n)
 '''
@@ -49,22 +71,3 @@ class Solution:
         
         
         
-        
-        d = len(nums) // k # the length of each partition
-        
-        @lru_cache(None)
-        def dfs(nums):
-            if not nums:
-                return 0
-            ret = float('inf')
-            for a in combinations(nums, d): # choose a as a partition
-                if len(set(a)) < d: # no two equal elements in the same subset
-                    continue
-                left = list(nums) # numbers left after removing partition a
-                for v in a:
-                    left.remove(v)
-                ret = min(ret, max(a) - min(a) + dfs(tuple(left)))
-            return ret
-        
-        ans = dfs(tuple(nums)) # turn the input into a tuple so the function can be cached
-        return ans if ans != float('inf') else -1

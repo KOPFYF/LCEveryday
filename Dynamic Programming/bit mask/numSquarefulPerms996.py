@@ -1,3 +1,29 @@
+class Solution:
+    def numSquarefulPerms(self, nums: List[int]) -> int:
+        # backtracking, like permutation II, O(n!)
+        nums.sort()
+        @lru_cache(None)
+        def check(num):
+            return pow(int(sqrt(num)), 2) == num
+        
+        res = 0
+        def dfs(nums, path): # perm II
+            nonlocal res
+            if not nums:
+                res += 1
+                return 
+            for i in range(len(nums)):
+                if i > 0 and nums[i] == nums[i - 1]:
+                    continue
+                if path and not check(path[-1] + nums[i]):
+                    continue
+                dfs(nums[:i] + nums[i+1:], path + [nums[i]])
+                
+        dfs(nums, [])
+        # print(res)
+        return res
+
+
 class Solution_bt:
     def numSquarefulPerms(self, A: List[int]) -> int:        
         # backtracking, like permutation II, O(n!)
