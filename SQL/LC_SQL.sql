@@ -215,13 +215,13 @@ where c.month = d.month
 group by c.month;
 
 -- follow-up2:How about the cumulative accept rate for every day?
-## sum up the case when ind is 'a', which means it belongs to accept table, divided by sum of ind is 'r', which means it belong to request table
+-- sum up the case when ind is 'a', which means it belongs to accept table, divided by sum of ind is 'r', which means it belong to request table
 select s.date1, ifnull(round(sum(case when t.ind = 'a' then t.cnt else 0 end)
               /sum(case when t.ind = 'r' then t.cnt else 0 end),2),0) 
 from
-## get a table of all unique dates
+-- get a table of all unique dates
 (select distinct x.request_date as date1 from friend_request x
-## The reason here use union sicne we don't want duplicate date
+-- The reason here use union sicne we don't want duplicate date
 union 
  select distinct y.accept_date as date1 from request_accepted y 
 ) s
@@ -556,4 +556,34 @@ ORDER BY A.id;
 ----------------------------------- end ---------------------------------------
 
 
+-- 1892. Page Recommendations II
+-- Create a CTE with all friends list.
+with friends as
+(
+    select user1_id as user_id, user2_id as friend from friendship
+    union
+    select user2_id as user_id, user1_id as friend from friendship
+)
 
+-- Use JOIN to get all friends liked page, then use LEFT JOIN to exclude pages was liked by user_id
+select f.user_id, l1.page_id, count(l1.page_id) as friends_likes
+from friends f
+join Likes l1 on f.friend = l1.user_id
+left join Likes l2 on f.user_id = l2.user_id and l1.page_id = l2.page_id 
+where l2.page_id is null
+group by f.user_id, l1.page_id;
+
+----------------------------------- end ---------------------------------------
+
+-- 1264. Page Recommendations
+SELECT DISTINCT page_id AS recommended_page
+FROM Likes
+WHERE user_id IN (
+    SELECT user2_id AS friend_id FROM Friendship WHERE user1_id = 1
+    UNION
+    SELECT user1_id AS friend_id FROM Friendship WHERE user2_id = 1) 
+AND page_id NOT IN (
+      SELECT page_id FROM Likes WHERE user_id = 1
+    );
+
+----------------------------------- end ---------------------------------------
