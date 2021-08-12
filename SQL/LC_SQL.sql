@@ -597,3 +597,59 @@ left join Confirmations c
 on s.user_id = c.user_id
 group by s.user_id;
 ----------------------------------- end ---------------------------------------
+
+
+-- 1965. Employees With Missing Information
+select * from
+(select e.employee_id
+from Employees e
+left join Salaries s
+on e.employee_id = s.employee_id 
+where s.employee_id is null
+union 
+select s.employee_id
+from Employees e
+right join Salaries s
+on e.employee_id = s.employee_id 
+where e.employee_id is null) tmp
+order by employee_id;
+----------------------------------- end ---------------------------------------
+
+
+-- 1949. Strong Friendship
+# requirement: user1_id < user2_id
+# soln 1, c1 and c2 has u1, find their common u2
+with cte as(select user1_id,user2_id from friendship
+            union 
+            select user2_id,user1_id from friendship)
+            
+select c1.user1_id
+      ,c2.user1_id as user2_id
+	  ,count(*) as common_friend 
+from cte as c1 
+     join 
+	 cte as c2
+on c1.user1_id < c2.user1_id 
+   and 
+   c1.user2_id = c2.user2_id
+where (c1.user1_id, c2.user1_id) in (select * from friendship)
+group by 1,2
+having count(*) >= 3;
+
+# soln 2, f2 contains 
+with f as (
+    select user1_id, user2_id from friendship
+    union all
+    select user2_id as user1_id, user1_id as user2_id from friendship
+)
+
+select f1.user1_id, f1.user2_id, count(*) as common_friend 
+from f f1
+join f f2
+on f1.user1_id = f2.user1_id # add user1's friend from f2 (f2.u2 is common with f3.u2)
+join f f3
+on f1.user2_id = f3.user1_id and f2.user2_id = f3.user2_id # add user2's friend
+where f1.user1_id < f1.user2_id # dedup filter out pairs that user1_id > user2_id
+group by f1.user1_id, f1.user2_id
+having count(*) >= 3;
+----------------------------------- end ---------------------------------------
