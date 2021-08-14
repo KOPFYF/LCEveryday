@@ -1,9 +1,12 @@
-146 LRU do it again
-200 not bug free, write BFS again
-277 TLE
-54 done with hint, confirm range, l, r, u, d and do 4 loops periodically
-1647 no clue greedy
-706 design hashmap
-1578 greedy, use prev index! I was trying to group using a list
-722 string, do it again
-460 LFU, no AC, debugging...
+146. LRU do it again, one bug, (if self.size > self.capacity) should not be equal
+	2 functions would be enough -- 1. remove() 2. appendleft()
+200. not bug free, write BFS again, dfs bug free
+277. TLE
+54. done with hint, confirm range, l, r, u, d and do 4 loops periodically
+1647. no clue greedy
+706. design hashmap, not bug free with hint(self.next = None). do it again
+1578. greedy, use prev index! I was trying to group using a list
+722. string, do it again
+460. LFU, no AC, debugging...
+545. Boundary of Binary Tree. forgot, do it again
+348. Design Tic-Tac-Toe, AC by checking the soln

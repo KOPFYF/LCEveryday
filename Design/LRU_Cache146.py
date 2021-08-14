@@ -108,23 +108,28 @@ class LRUCache0:
         return -1
 
     def set(self, key, value):
+        # set the new node to the end
         if key in self.dic:
             self._remove(self.dic[key])
         n = Node(key, value)
         self._add(n)
         self.dic[key] = n
+
+        # remove least recently used node in the head
         if len(self.dic) > self.capacity:
             n = self.head.next
             self._remove(n)
             del self.dic[n.key]
 
     def _remove(self, node):
+        # remove node in between
         p = node.prev
         n = node.next
         p.next = n
         n.prev = p
 
     def _add(self, node):
+        # add node to the tail
         p = self.tail.prev
         p.next = node
         self.tail.prev = node
