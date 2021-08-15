@@ -1,3 +1,4 @@
+
 class Solution:
     def maxSumAfterOperation(self, nums: List[int]) -> int:
         # DP O(n)/O(1)
@@ -25,5 +26,5 @@ class Solution:
             op = max(prev_op + nums[i], nums[i]**2, prev_normal + nums[i]**2)
             res = max(res, normal, op)
         return res
-    
+  
         

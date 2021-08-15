@@ -108,7 +108,7 @@ class LRUCache0:
         return -1
 
     def set(self, key, value):
-        # set the new node to the end
+        # pop the node from middle and set the new node to the end
         if key in self.dic:
             self._remove(self.dic[key])
         n = Node(key, value)
