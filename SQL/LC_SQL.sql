@@ -653,3 +653,27 @@ where f1.user1_id < f1.user2_id # dedup filter out pairs that user1_id > user2_i
 group by f1.user1_id, f1.user2_id
 having count(*) >= 3;
 ----------------------------------- end ---------------------------------------
+
+
+-- 1972. First and Last Call On the Same Day
+# rank() by call_time to get the first and last call, group by user and day
+# having count(distinct recipient_id) = 1: make sure it's the same person
+with tmp1 as (
+    select caller_id as user_id, recipient_id, call_time from calls
+    union all
+    select recipient_id as user_id, caller_id as recipient_id, call_time from calls
+),
+
+tmp2 as (
+    select user_id, recipient_id, date(call_time) as day,
+        dense_rank() over (partition by user_id, date(call_time) order by call_time asc) as rn,
+        dense_rank() over (partition by user_id, date(call_time) order by call_time desc) as rk
+    from tmp1
+)
+
+select distinct user_id
+from tmp2
+where rn = 1 or rk = 1 
+group by user_id, day
+having count(distinct recipient_id) = 1;
+----------------------------------- end ---------------------------------------

@@ -1,7 +1,7 @@
 146. LRU do it again, one bug, (if self.size > self.capacity) should not be equal
 	2 functions would be enough -- 1. remove() 2. appendleft()
 200. not bug free, write BFS again, dfs bug free
-277. TLE
+277. TLE. Hint: step 1, find the candidate -> step 2, validate the candidate
 54. done with hint, confirm range, l, r, u, d and do 4 loops periodically
 1647. no clue greedy
 706. design hashmap, not bug free with hint(self.next = None). do it again
@@ -10,3 +10,14 @@
 460. LFU, no AC, debugging...
 545. Boundary of Binary Tree. forgot, do it again
 348. Design Tic-Tac-Toe, AC by checking the soln
+253. Meeting Rooms II, sweep line O(n), done with hint. heap soln need to check if hq is empty when pop
+708. Insert into a Sorted Circular Linked List. totally forget... 2 ptrs, 3 cases
+1576. Replace All ?'s to Avoid Consecutive Repeating Characters. Brute force but take care of boundary with "or"
+117. Populating Next Right Pointers in Each Node II. review!
+588. Design In-Memory File System. Do it urself
+1096. Brace Expansion II. Do it urself
+
+
+
+54. Spiral Matrix. Bug free AC!
+706. Design HashMap, still need hint...

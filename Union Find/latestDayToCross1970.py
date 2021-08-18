@@ -34,4 +34,5 @@ class Solution:
                     new_cell = ii * n + jj 
                     uf.union(cell, new_cell, n)
                     if uf.span[uf.find(cell)] == [0, n-1]: 
+                        # when 1 covers all columns
                         return step 

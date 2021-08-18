@@ -25,3 +25,45 @@ class Solution:
                 product = ['']
             # print(union, product, stack)
         return sorted(set(union + product))
+
+
+'''
+Use stack for "{" and "}" just like in calculator.
+Maintain two lists:
+  1. the previous list before ",",
+  2. the current list that is still growing.
+  
+When seeing an "alphabet", grow the second list by corss multiplying. So that [a]*b will become "ab", [a,c]*b will become ["ab", "cb"]
+When seeing ",", that means the second list can't grow anymore. combine it with the first list and clear the second list.
+When seeing "{", push the two lists into stack,
+When seeing "}", pop the previous two lists, cross multiplying the result inside "{ }" into the second list.
+
+If not considering the final sorting before return, the time complexity should be O(n)
+
+'''
+class Solution(object):
+    def braceExpansionII(self, expression):
+        """
+        :type expression: str
+        :rtype: List[str]
+        """
+        # stack
+        stack, cur, res = [], [], []
+        for i, ch in enumerate(expression):
+            if ch.isalpha():
+                cur = [c + ch for c in cur or ['']]
+            elif ch == ',':
+                res += cur
+                cur = []
+            elif ch == '{':
+                # push the two lists into stack
+                stack.append(res)
+                stack.append(cur)
+                res, cur = [], []
+            elif ch == '}':
+                pre = stack.pop()
+                pre_res = stack.pop()
+                cur = [p + c for c in res + cur for p in pre or ['']]
+                res = pre_res
+            print(i, ch, cur, res, stack)
+        return sorted(set(res + cur))
