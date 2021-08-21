@@ -42,3 +42,6 @@ class Solution:
             
             # levelHead.next is used above, make it to none so that next time it won't grab the same level head again.
             levelHead.next = None
+
+
+            
