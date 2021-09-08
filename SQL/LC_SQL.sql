@@ -677,3 +677,23 @@ where rn = 1 or rk = 1
 group by user_id, day
 having count(distinct recipient_id) = 1;
 ----------------------------------- end ---------------------------------------
+
+
+-- 1831. Maximum Transaction Each Day
+# max(amount), where in
+select transaction_id 
+from Transactions
+where (amount, date(day)) in
+( select max(amount) as max_amt, date(day) as day1 
+from Transactions group by date(day) ) 
+order by transaction_id;
+
+# window func, dense_rank
+select transaction_id
+from 
+(select transaction_id, 
+        dense_rank() over (partition by date(day) order by amount desc) as rk
+from Transactions) as sub
+where rk = 1
+order by transaction_id;
+----------------------------------- end ---------------------------------------
