@@ -1,0 +1,43 @@
+-------------- Round 1, Sep 24 -------------
+
+High Freq: topo-sort, Trie, Graph, Union find, 2 ptrs
+
+
+759	Employee Free Time 69.9%	Hard	
+
+1268
+
+1293
+
+631
+
+710	Random Pick with Blacklist	33.3%	Hard
+
+
+723	Candy Crush 73.9%	Medium	
+2 ptrs
+
+269	Alien Dictionary 34.2%	Hard
+topo-sort
+- Passed with hint/bug. do it again. remind urself of corner cases
+
+1306 Jump Game III	61.6%	Medium	
+
+721	Accounts Merge 53.8%	Medium	
+Union Find
+
+210	course Schedule II 44.5%	Medium
+topo-sort, need hint for the first time
+BFS, take care when build graph, based on indegree
+DFS, based on cycle detection
+- No AC, review and do it again!
+
+277	Find the Celebrity 45.2%	Medium	
+graph, greedy
+AC!!
+
+392	Is Subsequence	49.9%	Easy	
+- 2 ptrs, AC!!
+
+
+https://en.wikipedia.org/wiki/Band_matrix
