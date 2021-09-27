@@ -1,9 +1,12 @@
 -------------- Round 1, Sep 24 -------------
 
-High Freq: topo-sort, Trie, Graph, Union find, 2 ptrs
+High Freq: Topo-sort, Trie, Graph, Union find, PQ/heap, 2 ptrs
 
 
-759	Employee Free Time 69.9%	Hard	
+759	Employee Free Time 69.9%	Hard
+Sweep Line
+- done with review
+
 
 1268
 
@@ -11,26 +14,47 @@ High Freq: topo-sort, Trie, Graph, Union find, 2 ptrs
 
 631
 
-710	Random Pick with Blacklist	33.3%	Hard
+621	Task Scheduler  53.5%	Medium
 
+710	Random Pick with Blacklist	33.3%	Hard
+random, binary search
+- first time see it. trying to understand, hash map(remapping) is the optimal soln.
 
 723	Candy Crush 73.9%	Medium	
-2 ptrs
+2 ptrs, simulation
+- totally forgot. review and write from memory. 3 steps: check crush -> set crush -> drop. in check step, check candy != 0
+-
 
 269	Alien Dictionary 34.2%	Hard
 topo-sort
 - Passed with hint/bug. do it again. remind urself of corner cases
 
-1306 Jump Game III	61.6%	Medium	
-
 721	Accounts Merge 53.8%	Medium	
 Union Find
+
+
+###################### AC #######################
+
+811	Subdomain Visit Count	72.8%	Medium
+Hashmap. read the question carefully and follow the guide. Should be an easy
+- AC
 
 210	course Schedule II 44.5%	Medium
 topo-sort, need hint for the first time
 BFS, take care when build graph, based on indegree
 DFS, based on cycle detection
 - No AC, review and do it again!
+- AC. indegree = {i:0 for i in range(n)}, if I use indegree=defaultdict(int), bfs should use for i in range(n)
+  print(indegree) # indegree with 0 will not be here if use defaultdict!
+
+
+1306 Jump Game III	61.6%	Medium	
+- I read it mistakenly. Any 0 will do!
+- AC
+
+208	Implement Trie (Prefix Tree)	54.7%	Medium	
+Trie
+AC!
 
 277	Find the Celebrity 45.2%	Medium	
 graph, greedy

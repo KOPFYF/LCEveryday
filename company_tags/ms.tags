@@ -24,23 +24,30 @@
 
 
 
---- Sep 24 ---
+--- Sep 24 2021, Microsoft Suzhou Applied Scientist ---
 1448 AC
 1822 AC
 146  AC
 200  AC
-1647
-277
-1405
-1615
-212
-706
-1578
-428
-545
-588
+1647 greedy no clue again. keep a seen set to record freq. for dup freq, freq--, res++
+277 AC
+1405 heap + greedy, simulation
+1615 AC
+212 Hard
+706  Design Hashmap. LinkedList, cache = [Node*1000], define cache function
+1578 Greedy, we need cost = sum_cost(group) - max_cost(group)
+428 Hard
+273 Hard
+545 Boundary of Binary Tree
+588 Hard
 722
 443
+253 AC. sweep line(heap is also O(nlgn)). sort after sweep. meeting room1 is O(n) by checking overlap
+56  AC
+340 Sliding win. need to redo it
+54  Some bug with the index
+151 AC
+915 Have the prefix idea, but stuck with index issue. should compare left[i] <= right[i+1] for i in range(n-1)
 
 
 
