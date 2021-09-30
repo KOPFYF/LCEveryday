@@ -1,0 +1,13 @@
+two sum - two difference
+read from STDIN and parse some information
+
+binary search standard library
+
+l, r = 0, len(arr) notice that right boundary is not len-1
+
+34 search range in sorted array, binary search 
+49 Group Anagrams, hashmap, key is tuple of [freq]*26, value is list of str
+360 Optimal Soln is 2 ptrs
+702 Search in a Sorted Array of Unknown Size
+981 Time Based Key-Value Store, have to use bisect right, and return arr[l - 1][1] if l else ""
+

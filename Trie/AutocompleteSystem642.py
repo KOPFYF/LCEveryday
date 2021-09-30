@@ -2,6 +2,64 @@ class TrieNode:
     def __init__(self):
         self.children = {}
         self.words = []
+        
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def insert(self, word):
+        node = self.root
+        for ch in word:
+            if ch not in node.children:
+                node.children[ch] = TrieNode()
+            node = node.children[ch]
+            node.words.append(word)
+            
+    def search_prefix(self, prefix):
+        node = self.root
+        for ch in prefix:
+            if ch not in node.children:
+                return ''
+            node = node.children[ch]
+        return node.words
+
+class AutocompleteSystem:
+    # top 3 hot sentences should be sorted by hot degree
+    # If several sentences have the same hot degree, use ASCII-code order, smaller one appears first
+
+    def __init__(self, sentences: List[str], times: List[int]):
+        self.trie = Trie()
+        self.cache_count = defaultdict(int)
+        self.pre = ""
+        
+        for i, sen in enumerate(sentences):
+            self.trie.insert(sen)
+            self.cache_count[sen] = times[i]
+        
+    def input(self, c: str) -> List[str]:
+        if c != '#':
+            self.pre += c
+            sens = self.trie.search_prefix(self.pre)
+            res = []
+            for sen in sens:
+                res.append((self.cache_count[sen], sen))
+            res = list(set(res))
+            return [sen for cnt, sen in sorted(res, key=lambda x:(-x[0], x[1]))[:3]]
+        else:
+            self.cache_count[self.pre] += 1
+            self.trie.insert(self.pre)
+            self.pre = ""
+            return []
+
+
+
+
+####################
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.words = []
 
 class AutocompleteSystem1:
     '''

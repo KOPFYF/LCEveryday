@@ -4,6 +4,7 @@ class Solution:
         grid: 2 x n
         (0, 0) => (1, n-1)
         '''
+        # O(n)/O(n)
         n = len(grid[0])
         presum1, presum2 = [0], [0]
         for i in range(n):
@@ -22,6 +23,7 @@ class Solution:
 
 class Solution2:
     def gridGame(self, grid: List[List[int]]) -> int:
+        # O(n)/O(1)
         n = len(grid[0])
         ans = math.inf
         topSum = sum(grid[0])

@@ -1,3 +1,4 @@
+--- July 2021
 146. LRU do it again, one bug, (if self.size > self.capacity) should not be equal
 	2 functions would be enough -- 1. remove() 2. appendleft()
 200. not bug free, write BFS again, dfs bug free
@@ -16,9 +17,6 @@
 117. Populating Next Right Pointers in Each Node II. review!
 588. Design In-Memory File System. Do it urself
 1096. Brace Expansion II. Do it urself
-
-
-
 54. Spiral Matrix. Bug free AC!
 706. Design HashMap, still need hint...
 
@@ -30,18 +28,21 @@
 146  AC
 200  AC
 1647 greedy no clue again. keep a seen set to record freq. for dup freq, freq--, res++
+    - while freq and freq in seen
 277 AC
 1405 heap + greedy, simulation
 1615 AC
 212 Hard
 706  Design Hashmap. LinkedList, cache = [Node*1000], define cache function
+    - AC
 1578 Greedy, we need cost = sum_cost(group) - max_cost(group)
 428 Hard
 273 Hard
-545 Boundary of Binary Tree
+545 Boundary of Binary Tree, bottom should not include root. if node != root 
+    - AC
 588 Hard
-722
-443
+722 3 cases, //, /*, */. use a buffer & block_open flag
+443 fast and slow ptrs. i is the compressed/slower one. j is to find the group
 253 AC. sweep line(heap is also O(nlgn)). sort after sweep. meeting room1 is O(n) by checking overlap
 56  AC
 340 Sliding win. need to redo it
