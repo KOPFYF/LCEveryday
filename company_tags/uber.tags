@@ -1,0 +1,79 @@
+----- Oct 2nd 2021 -----
+
+815	
+Bus Routes	44.3%	Hard	
+BFS, bus id as a node, bus change as edge. seen set is tricky, record seen bus, not stop. Do it again
+- if the bus you have taken before, you needn't take it again. 
+
+
+427	
+Construct Quad Tree	63.7%	Medium
+Recursion, base case, write a function isLeaf()
+
+
+1861	
+Rotating the Box	63.1%	Medium	
+Matrix Rotation!!
+
+
+465	
+Optimal Account Balancing 48.6%	Hard	
+backtracking + greedy, hard+
+
+
+174	
+Dungeon Game	35.2%	Hard
+DP from right bottom to left up. reverse
+	
+
+
+1400	
+Construct K Palindrome Strings	63.9%	Medium	
+Hash table, odd <= k <= len(s)
+
+--- above is high freq ---
+
+305	
+Number of Islands II 39.4%	Hard	
+
+1743	
+Restore the Array From Adjacent Pairs	66.5%	Medium	
+
+773	
+Sliding Puzzle	62.3%	Hard	
+
+502	
+IPO	42.8%	Hard
+
+986	
+Interval List Intersections	69.5%	Medium	
+
+1531	
+String Compression II 35.8%	Hard	
+
+
+68	
+Text Justification	32.4%	Hard	
+
+855	
+Exam Room	43.5%	Medium	
+
+679	24 Game	47.9%	Hard	
+
+655	
+Print Binary Tree	57.7%	Medium	
+
+1579	
+Remove Max Number of Edges to Keep Graph Fully Traversable	48.5%	Hard	
+
+1052	
+Grumpy Bookstore Owner	56.2%	Medium	
+
+127	
+Word Ladder 33.5%	Hard	
+
+546	
+Remove Boxes	47.2%	Hard	
+
+1696	
+Jump Game VI	42.1%	Medium

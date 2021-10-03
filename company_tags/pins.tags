@@ -1,18 +1,30 @@
 -------------- Round 1, Sep 24 -------------
 
-High Freq: Topo-sort, Trie, Graph, Union find, PQ/heap, 2 ptrs
+High Freq: Topo-sort, Trie, Graph, Union find, PQ/heap, 2 ptrs, stack
 
 
-759	Employee Free Time 69.9%	Hard
-Sweep Line
-- done with review
-- AC.
 
-1268
+1268 Search Suggestions System
+Trie    self.children = {}
+        self.words = []
+        self.n = 0 # at most 3
+- AC
+- AC
 
-1293
+1293 Shortest Path in a Grid with Obstacles Elimination
+Normal BFS but with one more variable(restriction), if obs > k: continue, just filter out invalid soln
+- Review
+- AC
 
-631
+
+631 Design Excel Sum Formula
+Topo-sort(no cycle), backtracking
+- copy the answer
+- 
+
+726	Number of Atoms	51.3%	Hard
+Stack
+
 
 621	Task Scheduler  53.5%	Medium
 Greedy, math, tip: find the most freq one and set the base with it, fill from high freq to low
@@ -32,12 +44,39 @@ random, binary search
 269	Alien Dictionary 34.2%	Hard
 topo-sort
 - Passed with hint/bug. do it again. remind urself of corner cases
+- Still some bug. graph = defaultdict(list), check and break
+
+362 Design Hit Counter 66.4%	Medium
+
+	
+79 Word Search	38.5%	Medium
+- 56/57, seen set is tricky, use board[x][y] = '#'
 
 721	Accounts Merge 53.8%	Medium	
 Union Find
+- finish with review
+- 
+
+298	Binary Tree Longest Consecutive Sequence 49.4%	Medium
+
+37	Sudoku Solver	51.0%	Hard
+Backtracking, check every possible soln
+board[x][y] = '#' # like a seen set
+ni, nj = (i // 3) * 3 + di, (j // 3) * 3 + dj
+
+36	Valid Sudoku	53.0%	Medium
+One seen set check 3 conditions
+
+76	Minimum Window Substring 37.7%	Hard
 
 
 ###################### AC #######################
+
+759 Employee Free Time 69.9%  Hard
+Sweep Line
+- done with review
+- AC
+- AC
 
 811	Subdomain Visit Count	72.8%	Medium
 Hashmap. read the question carefully and follow the guide. Should be an easy
@@ -50,6 +89,7 @@ DFS, based on cycle detection
 - No AC, review and do it again!
 - AC. indegree = {i:0 for i in range(n)}, if I use indegree=defaultdict(int), bfs should use for i in range(n)
   print(indegree) # indegree with 0 will not be here if use defaultdict!
+- AC
 
 
 1306 Jump Game III	61.6%	Medium	
@@ -58,14 +98,15 @@ DFS, based on cycle detection
 
 208	Implement Trie (Prefix Tree)	54.7%	Medium	
 Trie
-AC!
+- AC!
 
 277	Find the Celebrity 45.2%	Medium	
 graph, greedy
-AC!!
+- AC!!
 
 392	Is Subsequence	49.9%	Easy	
 - 2 ptrs, AC!!
+- AC
 
 
 https://en.wikipedia.org/wiki/Band_matrix

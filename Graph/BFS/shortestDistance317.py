@@ -1,3 +1,5 @@
+# https://leetcode.com/problems/shortest-distance-from-all-buildings/discuss/76877/Python-solution-72ms-beats-100-BFS-with-pruning
+
 class Solution:
     def shortestDistance(self, grid: List[List[int]]) -> int:
         if not grid or not grid[0]:
@@ -49,7 +51,7 @@ class Solution2:
                     nr, nc = dr + r, dc + c
                     if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == 0 and reach[nr][nc] == cnt:
                         dist[nr][nc] += step + 1
-                        reach[nr][nc] += 1
+                        reach[nr][nc] += 1 # diff with normal BFS, we have a count matrix checking the current shop count
                         queue.append((nr, nc, step + 1))
                 step += 1
 
