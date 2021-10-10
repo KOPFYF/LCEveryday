@@ -107,6 +107,9 @@ class Trie: #  prefix tree(字典\U0001f332)
             node = node.children[ch] # move on to the nxt level
         node.word = True # loop to the end, store the word as true
 
+
+
+
 class Trie:
     def __init__(self):
         self.root={}
@@ -173,6 +176,52 @@ class Solution1:
                     # instead of node itself
                     rec("", trie.root,i,j)
         return ans
+
+
+
+class Solution_DFS_TLE:
+    def findWords(self, board0: List[List[str]], words: List[str]) -> List[str]:
+        '''
+        m == board.length
+        n == board[i].length
+        1 <= m, n <= 12
+        board[i][j] is a lowercase English letter.
+        1 <= words.length <= 3 * 10^4
+        1 <= words[i].length <= 10
+
+        O(mn3^lw) = O(12*12*10^3*2*10^4)
+        '''
+        def findWord(board, word):
+            # O(mn3^l) / O(l)
+            m, n, w = len(board), len(board[0]), len(word)
+        
+            def dfs(x, y, pos):
+                # return True if we find a valid word
+                if pos == w:
+                    return True
+                tmp, board[x][y] = board[x][y], '#'
+                
+                res = False
+                for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < m and 0 <= ny < n:
+                        if board[nx][ny] == word[pos] and dfs(nx, ny, pos + 1):
+                            res = True
+                board[x][y] = tmp
+                return res
+
+            for x in range(m):
+                for y in range(n):
+                    if board[x][y] == word[0] and dfs(x, y, 1):
+                        return True
+            return False
+        
+        res = []
+        # O(mn3^lw) TLE
+        for word in set(words):
+            if findWord(board0, word):
+                res.append(word)
+        return res
 
 
 

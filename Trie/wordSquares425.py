@@ -1,5 +1,57 @@
 class TrieNode:
     def __init__(self):
+        self.children = {}
+        self.words = []
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+        
+    def insert(self, word):
+        node = self.root
+        node.words.append(word)
+        for ch in word:
+            if ch not in node.children:
+                node.children[ch] = TrieNode()
+            node = node.children[ch]
+            node.words.append(word)
+    
+    def search(self, prefix):
+        node = self.root
+        for ch in prefix:
+            if ch not in node.children:
+                return []
+            node = node.children[ch]
+        return node.words
+
+
+class Solution:
+    def wordSquares(self, words: List[str]) -> List[List[str]]:
+        res = []
+        k = len(words[0]) # len of each word
+        trie = Trie()
+        for word in words:
+            trie.insert(word)
+            
+        def dfs(row, path):
+            if row == k:
+                res.append(path)
+                return 
+            pre = ''
+            for word in path:
+                pre += word[row]
+            for nxt_word in trie.search(pre):
+                dfs(row + 1, path + [nxt_word])
+        
+        dfs(0, [])
+        return res
+
+
+#############################
+
+
+class TrieNode:
+    def __init__(self):
         self.children = defaultdict(TrieNode)
         self.isWord = False
         self.words = []

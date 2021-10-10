@@ -28,6 +28,7 @@ class Trie():
         return node.weights
         
 class WordFilter1:
+    # TLE in Oct 2021
     def __init__(self, words: List[str]):
         self.prefix, self.suffix = Trie(), Trie()
         i, n = 0, len(words)
@@ -40,6 +41,8 @@ class WordFilter1:
     def f(self, prefix: str, suffix: str) -> int:
         pre = self.prefix.search(prefix)
         suf = self.suffix.search(suffix[::-1])
+        # print(pres, sufs) # find overlap, they are both increasing!
+
         i, j = len(pre) - 1, len(suf) - 1
         while i >= 0 and j >= 0:
             if pre[i] == suf[j]:

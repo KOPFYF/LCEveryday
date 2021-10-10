@@ -3,6 +3,128 @@
 High Freq: Topo-sort, Trie, Graph, Union find, PQ/heap, 2 ptrs, stack
 
 
+642 Design Search Autocomplete System
+Trie
+- forgot to insert in '#', self.trie.insert(self.pre), update both cache_count and trie
+- 
+
+1293 Shortest Path in a Grid with Obstacles Elimination
+Normal BFS but with one more variable(restriction), if obs > k: continue, just filter out invalid soln
+- Review
+- AC
+- obs > k, not =, obs = 0(init), O(mnk)/O(mnk), for each cell, at most, it will be visited K times, with different quotas of obstacle elimination
+
+
+631 Design Excel Sum Formula
+Topo-sort(no cycle), backtracking
+- copy the answer
+- did it again.. have a _parse() to parse str, recursion in get(), when set(), need to remove 'sum', so set both!!
+- AC
+
+726	Number of Atoms	51.3%	Hard
+Stack
+- review. reverse scan, prod = 1, cnt = i = 0, atom = '', defaultdict(int)
+- AC
+
+621	Task Scheduler  53.5%	Medium
+Greedy, math, tip: find the most freq one and set the base with it, fill from high freq to low
+- Undertsand the logic. math soln, O(n)/O(1)
+  max(len(tasks), (f_max - 1) * (n + 1) + n_max)
+- Review one more time. 2 cases
+- AC
+- AC
+
+
+710	Random Pick with Blacklist	33.3%	Hard
+random, binary search
+- first time see it. trying to understand, hash map(remapping) is the optimal soln.
+- review it again, put whilelist on the left, and blacklist on the right. then map
+
+
+723	Candy Crush 73.9%	Medium	
+2 ptrs, simulation
+- totally forgot. review and write from memory. 3 steps: check crush -> set crush -> drop. in check step, check candy != 0
+- review it again. drop needs to take care of index
+
+
+269	Alien Dictionary 34.2%	Hard
+topo-sort
+- Passed with hint/bug. do it again. remind urself of corner cases
+- Still some bug. graph = defaultdict(list), check and break
+- Still one bug. finally should check cycle before return result
+- Still one bug. break should in the "if ch1 != ch2"
+- AC, O(C+min(U^2,N)) / O(U+min(U^2,N))
+
+362 Design Hit Counter 66.4%	Medium
+binary search is O(logn), deque is O(n)
+- AC, bisect right, diy
+- AC
+
+
+23 merge k sorted array
+backtracking
+- AC, recursion on mergeK, base case is merge2Lists()
+
+
+721	Accounts Merge 53.8%	Medium	
+Union Find
+- finish with review
+- still need some hint. key is to union idx
+- AC
+- AC
+
+
+298	Binary Tree Longest Consecutive Sequence 49.4%	Medium
+- failed
+- AC, bottom up DFS. keep a global self.res, and dfs(node) return length starting with current node
+- AC
+- AC
+
+
+
+37	Sudoku Solver	51.0%	Hard
+Backtracking, check every possible soln
+- board[x][y] = '#' # like a seen set, nx, ny = (x//3)*3 + dx, (y//3)*3 + dy
+- check(x, y), dfs(board)
+- AC
+
+
+36	Valid Sudoku	53.0%	Medium
+One seen set check 3 conditions
+- AC. seen set with (tmp, x, -1), (tmp, -1, y), (tmp, x//3, y//3)
+- AC
+
+
+76	Minimum Window Substring 37.7%	Hard
+- Still need some refresh.
+
+
+529. Minesweeper
+- Review once, practice more
+- 
+
+
+212 Word Search II HARD
+- DFS TLE, O(mn3^lw)
+- 
+
+
+71  Simplify Path 36.1% Medium
+- failed on "/../", if stack, stack.pop() this should under f == '..'
+
+
+215. Kth Largest Element in an Array
+Quick sort, partition()
+-AC
+
+
+###################### AC #######################
+
+79 Word Search  38.5% Medium
+- 56/57, seen set is tricky, use board[x][y] = '#'
+- AC, O(mn 3^w) / O(w)
+- AC
+- AC
 
 1268 Search Suggestions System
 Trie    self.children = {}
@@ -10,76 +132,20 @@ Trie    self.children = {}
         self.n = 0 # at most 3
 - AC
 - AC
+- AC(with a little typo, TrieNode(), __init__ )
+- AC(with a typo, self.n should be node.n)
 
-1293 Shortest Path in a Grid with Obstacles Elimination
-Normal BFS but with one more variable(restriction), if obs > k: continue, just filter out invalid soln
-- Review
-- AC
-
-
-631 Design Excel Sum Formula
-Topo-sort(no cycle), backtracking
-- copy the answer
-- 
-
-726	Number of Atoms	51.3%	Hard
-Stack
-
-
-621	Task Scheduler  53.5%	Medium
-Greedy, math, tip: find the most freq one and set the base with it, fill from high freq to low
-- Undertsand the logic. math soln, O(n)/O(1)
-  max(len(tasks), (f_max - 1) * (n + 1) + n_max)
-
-
-710	Random Pick with Blacklist	33.3%	Hard
-random, binary search
-- first time see it. trying to understand, hash map(remapping) is the optimal soln.
-
-723	Candy Crush 73.9%	Medium	
-2 ptrs, simulation
-- totally forgot. review and write from memory. 3 steps: check crush -> set crush -> drop. in check step, check candy != 0
--
-
-269	Alien Dictionary 34.2%	Hard
-topo-sort
-- Passed with hint/bug. do it again. remind urself of corner cases
-- Still some bug. graph = defaultdict(list), check and break
-
-362 Design Hit Counter 66.4%	Medium
-
-	
-79 Word Search	38.5%	Medium
-- 56/57, seen set is tricky, use board[x][y] = '#'
-
-721	Accounts Merge 53.8%	Medium	
-Union Find
-- finish with review
-- 
-
-298	Binary Tree Longest Consecutive Sequence 49.4%	Medium
-
-37	Sudoku Solver	51.0%	Hard
-Backtracking, check every possible soln
-board[x][y] = '#' # like a seen set
-ni, nj = (i // 3) * 3 + di, (j // 3) * 3 + dj
-
-36	Valid Sudoku	53.0%	Medium
-One seen set check 3 conditions
-
-76	Minimum Window Substring 37.7%	Hard
-
-
-###################### AC #######################
 
 759 Employee Free Time 69.9%  Hard
 Sweep Line
 - done with review
 - AC
 - AC
+- AC
 
 811	Subdomain Visit Count	72.8%	Medium
 Hashmap. read the question carefully and follow the guide. Should be an easy
+- AC
 - AC
 
 210	course Schedule II 44.5%	Medium
@@ -90,23 +156,29 @@ DFS, based on cycle detection
 - AC. indegree = {i:0 for i in range(n)}, if I use indegree=defaultdict(int), bfs should use for i in range(n)
   print(indegree) # indegree with 0 will not be here if use defaultdict!
 - AC
+- AC BFS, take a review of DFS
 
 
 1306 Jump Game III	61.6%	Medium	
 - I read it mistakenly. Any 0 will do!
 - AC
+- AC
 
 208	Implement Trie (Prefix Tree)	54.7%	Medium	
 Trie
 - AC!
+- AC
+- AC
 
 277	Find the Celebrity 45.2%	Medium	
 graph, greedy
 - AC!!
+- AC
+- AC
 
 392	Is Subsequence	49.9%	Easy	
 - 2 ptrs, AC!!
 - AC
-
+- AC, O(t)/O(1)
 
 https://en.wikipedia.org/wiki/Band_matrix

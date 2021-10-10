@@ -5,9 +5,32 @@ binary search standard library
 
 l, r = 0, len(arr) notice that right boundary is not len-1
 
-34 search range in sorted array, binary search 
-49 Group Anagrams, hashmap, key is tuple of [freq]*26, value is list of str
-360 Optimal Soln is 2 ptrs
+34 search range in sorted array
+binary search 
+- AC, write a bisect_left & a bisect_right, flag it when we find the exact target
+
+
+49 Group Anagrams
+hashmap
+- AC, key is tuple of [freq]*26, value is list of str
+
+
+
+360 Sort Transformed Array
+Optimal Soln is 2 ptrs, discuss a > 0, a < 0. a = 0 could be merged into these 2.
+- AC
+
+
+443. String Compression
+slow and fast pointers
+- AC with hint
+
+
+
 702 Search in a Sorted Array of Unknown Size
-981 Time Based Key-Value Store, have to use bisect right, and return arr[l - 1][1] if l else ""
+binary search
+- AC
+
+
+981 Time Based Key-Value Store, have to use bisect right ( = on l++), and return arr[l - 1][1] if l else ""
 

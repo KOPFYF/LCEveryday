@@ -24,7 +24,7 @@ backtracking + greedy, hard+
 174	
 Dungeon Game	35.2%	Hard
 DP from right bottom to left up. reverse
-	
+
 
 
 1400	
@@ -35,18 +35,25 @@ Hash table, odd <= k <= len(s)
 
 305	
 Number of Islands II 39.4%	Hard	
+Union Find with a self.cnt
+self.cnt++ for all new island, if union, self.cnt--
 
 1743	
 Restore the Array From Adjacent Pairs	66.5%	Medium	
+BFS, graph, find end with degree = 1
+- AC
 
 773	
 Sliding Puzzle	62.3%	Hard	
 
 502	
 IPO	42.8%	Hard
+Heap
 
 986	
 Interval List Intersections	69.5%	Medium	
+Merge interval, 2 ptrs
+- failed, should compare endtime only
 
 1531	
 String Compression II 35.8%	Hard	
@@ -58,10 +65,17 @@ Text Justification	32.4%	Hard
 855	
 Exam Room	43.5%	Medium	
 
-679	24 Game	47.9%	Hard	
+
+
+679	
+24 Game	47.9%	Hard	
+Recursion, try all pairs {a+b, abs(a-n), a/b b!= 0, b/a a!=0, a*b}. Be careful about rounding error when a/b
+
 
 655	
 Print Binary Tree	57.7%	Medium	
+Tree, recursion
+
 
 1579	
 Remove Max Number of Edges to Keep Graph Fully Traversable	48.5%	Hard	
@@ -71,6 +85,7 @@ Grumpy Bookstore Owner	56.2%	Medium
 
 127	
 Word Ladder 33.5%	Hard	
+Word Ladder II requires a tmp_seen set in the level-BFS loop. bcz we need to find all possible path
 
 546	
 Remove Boxes	47.2%	Hard	

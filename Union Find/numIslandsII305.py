@@ -13,6 +13,7 @@ class Solution:
         for x, y in positions:
             if grid[x][y] == 0:
                 grid[x][y] = 1
+                # for every new island, if union, it will --
                 dsu.cnt += 1 # assume x, y is a new island
                 dfs(x, y) # if x, y is connected, cnt-- so it does not hurt
             else: # it's set before so cnt does not change

@@ -6,7 +6,7 @@ class Interval:
         self.end = end
 """
 
-class Solution1:
+class Solution0:
     def employeeFreeTime(self, schedule: '[[Interval]]') -> '[Interval]':
         # sweep line, O(nlog(n))/O(n), O(nlog(n)) for sorting, O(n) for scanning
         intervals = [] # flatten
@@ -26,6 +26,48 @@ class Solution1:
                 res.append(Interval(prev.end, interval.start))
                 prev = interval
         return res
+
+
+"""
+# Definition for an Interval.
+class Interval:
+    def __init__(self, start: int = None, end: int = None):
+        self.start = start
+        self.end = end
+"""
+
+class Solution1_0:
+    def employeeFreeTime(self, schedule: '[[Interval]]') -> '[Interval]':
+        events = [[event.start, event.end] for ppl in schedule for event in ppl]
+        heapq.heapify(events)
+        res = []
+        prev = heapq.heappop(events)
+        while events:
+            cur = heapq.heappop(events)
+            if prev[1] < cur[0]:
+                # no overlap, need to update prev
+                res.append(Interval(prev[1], cur[0]))
+                prev = cur
+            elif prev[1] >= cur[0] and prev[1] < cur[1]:
+                # overlap
+                prev[1] = cur[1]
+        return res
+
+
+class Solution1_1:
+    def employeeFreeTime(self, schedule: '[[Interval]]') -> '[Interval]':
+        events = [[event.start, event.end] for ppl in schedule for event in ppl]
+        heapq.heapify(events)
+        res = []
+        start, end = heapq.heappop(events)
+        while events:
+            cur_start, cur_end = heapq.heappop(events)
+            if end < cur_start:
+                # no overlap, need to update prev
+                res.append(Interval(end, cur_start))
+            end = max(end, cur_end)
+        return res
+        
 
 
 # T: O(n*log(k)), n is the number of intervals across all employees

@@ -41,7 +41,7 @@ class Solution(object):
             for stop in stops:
                 stopBoard[stop].append(bus)
                     
-        seen = set() # seen record the bus
+        seen = set() # seen record the bus, I like this idea!
         bfs = deque([(S, 0)])
         while bfs:
             stop, step = bfs.popleft()
