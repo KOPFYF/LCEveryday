@@ -1,6 +1,6 @@
 class Solution:
     def findShortestWay(self, maze: List[List[int]], ball: List[int], hole: List[int]) -> str:
-        # BFS
+        # Heap + BFS
         m, n = len(maze), len(maze[0])
         q, stopped = [(0, "", ball[0], ball[1])], {(ball[0], ball[1]): [0, ""]}
         while q:

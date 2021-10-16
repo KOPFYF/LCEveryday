@@ -1,6 +1,41 @@
+'''
+During the first BFS we can change the visited empty land values from 0 to -1. Then during the next BFS we will only visit empty lands with a value of -1s (meaning they can reach the first house), then change -1 to -2 and then perform the next BFS only on -2s, and so on...
+'''
+class Solution:
+    def shortestDistance(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        dists = [[0] * n for _ in range(m)]
+        
+        def bfs(x, y, cnt):
+            # what is the dist from building to all the empty land, cnt means how many building before
+            res = float('inf')
+            bfs = collections.deque([(x, y, 0)])
+            while bfs:
+                x, y, step = bfs.popleft()
+                for dx, dy in dirs:
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < m and 0 <= ny < n and grid[nx][ny] == -cnt:
+                        dists[nx][ny] += step + 1
+                        res = min(res, dists[nx][ny])
+                        grid[nx][ny] -= 1
+                        bfs.append((nx, ny, step + 1))
+            return res
+        
+        cnt = 0
+        for x in range(m):
+            for y in range(n):
+                if grid[x][y] == 1:
+                    res = bfs(x, y, cnt)
+                    cnt += 1
+                    if res == float('inf'):
+                        return -1
+        return res
+
+
 # https://leetcode.com/problems/shortest-distance-from-all-buildings/discuss/76877/Python-solution-72ms-beats-100-BFS-with-pruning
 
-class Solution:
+class Solution1:
     def shortestDistance(self, grid: List[List[int]]) -> int:
         if not grid or not grid[0]:
             return -1
