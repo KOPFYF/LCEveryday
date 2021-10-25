@@ -6,7 +6,8 @@ class Solution:
         # heapreplace(a, x) returns the smallest value originally in a regardless of the value of x
         max_heap = []
         for count, token in (-a, 'a'), (-b, 'b'), (-c, 'c'):
-            if count: heapq.heappush(max_heap, (count, token))
+            if count: 
+                heapq.heappush(max_heap, (count, token))
         result = []
         while max_heap:
             count, token = heapq.heappop(max_heap) # char1

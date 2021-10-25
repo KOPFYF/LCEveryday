@@ -26,6 +26,13 @@ class Solution:
                 matrix[i][j], matrix[i][n-j-1] = matrix[i][n-j-1], matrix[i][j]
 
 
+    def transpose_2nd_diag(self, matrix):
+        n = len(matrix)
+        for i in range(n - 1):
+            for j in range(n - 1 - i):
+                matrix[i][j], matrix[n-j-1][n-i-1] = matrix[n-j-1][n-i-1], matrix[i][j]
+
+
 
 class Solution2:
     def rotate(self, matrix: List[List[int]]) -> None:

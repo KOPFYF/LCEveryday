@@ -1,3 +1,20 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        self.res = []
+        
+        def dfs(left, right, path):
+            if right > left or left > n or right > n:
+                return
+            if left == right == n:
+                self.res.append(path)
+            dfs(left + 1, right, path + '(')
+            dfs(left, right + 1, path + ')')
+        
+        dfs(0, 0, "")
+        
+        return self.res
+        
+
 class Solution(object):
     def generateParenthesis(self, n):
         """

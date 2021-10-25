@@ -28,7 +28,7 @@
 146  AC
 200  AC
 1647 greedy no clue again. keep a seen set to record freq. for dup freq, freq--, res++
-    - while freq and freq in seen
+    - while freq and freq in seen * 
 277 AC
 1405 heap + greedy, simulation
 1615 AC
@@ -36,6 +36,7 @@
 706  Design Hashmap. LinkedList, cache = [Node*1000], define cache function
     - AC
 1578 Greedy, we need cost = sum_cost(group) - max_cost(group)
+    - update res only when s[i-1] != s[i]
 428 Hard
 273 Hard
 545 Boundary of Binary Tree, bottom should not include root. if node != root 

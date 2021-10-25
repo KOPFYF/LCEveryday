@@ -35,7 +35,8 @@ class Solution1:
             size = len(bfs)
             for _ in range(size):
                 word, path = bfs.popleft()
-                if word == endWord: res += [path]
+                if word == endWord: 
+                    res += [path]
                 for i in range(len(word)):
                     for ch in charSet:
                         nxt_word = word[:i] + ch + word[i+1:]
