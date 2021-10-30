@@ -4,7 +4,51 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
+class Codec:
 
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        preorder traversal and preorder decompose
+        """
+        encode = []
+        def preorder(node):
+            if not node:
+                encode.append('#')
+            else:
+                encode.append(str(node.val))
+                preorder(node.left)
+                preorder(node.right)
+            
+        preorder(root)
+        return ','.join(encode)
+            
+                
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        # print(data)
+        vals = deque(data.split(","))
+        def build(vals):
+            if not vals:
+                return
+            val = vals.popleft()
+            if val == '#': # null node
+                return
+            else:
+                node = TreeNode(val)
+                node.left = build(vals)
+                node.right = build(vals)
+                return node
+        
+        return build(vals)
+
+        
 class Codec:
 
     def serialize(self, root):

@@ -1,3 +1,55 @@
+class Solution:
+    def numSimilarGroups(self, strs: List[str]) -> int:
+        def check(s1, s2):
+            n, n2 = len(s1), len(s2)
+            if n != n2:
+                return False
+            idx = []
+            for i in range(n):
+                if s1[i] != s2[i]:
+                    idx.append(i)
+                    if len(idx) > 2:
+                        return False
+            # print(s1, s2, idx)
+            if len(idx) == 0:
+                return True
+            elif len(idx) == 1:
+                return False
+            elif len(idx) == 2:
+                i, j = idx
+                return s1[i] == s2[j] and s1[j] == s2[i]
+        
+        l = len(strs)
+        dsu = DSU(l)
+        for i in range(l):
+            for j in range(i + 1, l):
+                s1, s2 = strs[i], strs[j]
+                if check(s1, s2):
+                    dsu.union(i, j)
+        
+        groups = set()
+        for i in range(l):
+            p_idx = dsu.find(i)
+            groups.add(p_idx)
+        return len(groups)
+                    
+                    
+                    
+class DSU:
+    def __init__(self, n):
+        self.parents = list(range(n))
+
+    def find(self, x):
+        if self.parents[x] != x:
+            self.parents[x] = self.find(self.parents[x])
+        return self.parents[x]
+
+    def union(self, x, y):
+        px, py = self.find(x), self.find(y)
+        if px != py:
+            self.parents[px] = py
+
+
 class Solution(object):
     def numSimilarGroups(self, strs):
         """

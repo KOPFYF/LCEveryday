@@ -12,7 +12,8 @@ class Solution(object):
             if nums[i] == nums[i-1]:
                 return nums[i]
         
-        # Solution 2: two pointer, O(n), fastest
+        # Solution 2: two pointer, O(n)/O(1), fastest
+        # Floyd's Tortoise and Hare (Cycle Detection), 2(F+a)=F+nC+a => F+a=nC
         slow = nums[0]
         fast = nums[nums[0]]
         # find meeting point in the cycle

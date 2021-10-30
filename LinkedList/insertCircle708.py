@@ -25,7 +25,7 @@ class Solution:
             # case 2, in between
             elif left.val <= insertVal <= right.val:
                 break
-            # loop all 
+            # case 3: the list contains uniform values.
             elif left.next == head: 
                 break
             

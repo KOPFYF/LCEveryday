@@ -1,5 +1,41 @@
 class Solution:
     def minPushBox(self, grid: List[List[str]]) -> int:
+        m, n = len(grid), len(grid[0])
+        free = set()
+        for x in range(m):
+            for y in range(n):
+                if grid[x][y] == '#':
+                    continue
+                if grid[x][y] == "T":
+                    target = (x, y)
+                if grid[x][y] == "B":
+                    bx, by = (x, y)
+                if grid[x][y] == "S":
+                    sx, sy = (x, y)
+                free.add((x, y))
+        
+        visited = set()
+        heap = [(0, sx, sy, bx, by)]
+        while heap:
+            moves, sx, sy, bx, by = heapq.heappop(heap)
+            if (bx, by) == target:
+                return moves
+            if (sx, sy, bx, by) in visited:
+                continue
+            visited.add((sx, sy, bx, by))
+            for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                nx, ny = sx + dx, sy + dy
+                if (nx, ny) == (bx, by) and (bx + dx, by + dy) in free and (nx, ny, bx + dx, by + dy) not in visited:
+                    # push the box one step ahead
+                    heapq.heappush(heap, (moves + 1, nx, ny, bx + dx, by + dy))
+                elif (nx, ny) in free and (nx, ny) != (bx, by) and (nx, ny, bx, by) not in visited:
+                    # no push, just free running, box stay the same place
+                    heapq.heappush(heap, (moves, nx, ny, bx, by))
+        return -1
+
+
+class Solution:
+    def minPushBox(self, grid: List[List[str]]) -> int:
         # First define a function to check from current state, what are the possible neighbouring states (use BFS to check if we can move the player to required location). Notice that the state includes both the location of the box and the player.
         # Second BFS to see if we can reach the target location.
         # this loop is to get the coordinates of target, box and person. Nothing else is gained here

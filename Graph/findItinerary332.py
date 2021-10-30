@@ -1,3 +1,24 @@
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        graph = defaultdict(list)
+        for s, e in tickets:
+            graph[s].append(e)
+        for k in graph:
+            graph[k].sort(reverse=True)
+        # dfs
+        path = []
+        def dfs(node):
+            
+            while graph[node]:
+                nxt_node = graph[node].pop()
+                dfs(nxt_node)
+            path.append(node)
+            
+        dfs('JFK')
+        return path[::-1]
+
+        
+
 class Solution0:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         # heap + dfs

@@ -1,3 +1,79 @@
+class Solution(object):
+    def removeInvalidParentheses(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        def check(s):
+            # return unmatched left & right count, O(n)
+            left = 0
+            for ch in s:
+                if ch == '(':
+                    left += 1
+                elif ch == ')':
+                    if left > 0:
+                        left -= 1
+                    else:
+                        return False
+            return left == 0
+        
+        bfs = {s}
+        while True:
+            res = []
+            for path in bfs:
+                if check(path):
+                    res.append(path)
+            if res:
+                return res
+            nxt_bfs = set()
+            for path in bfs:
+                for i in range(len(path)):
+                    nxt_bfs.add(path[:i] + path[i+1:])
+            bfs = nxt_bfs
+
+
+
+class Solution:
+    def removeInvalidParentheses(self, s: str) -> List[str]:
+        '''
+        Generate all valid parentheses from string s, we can memoize them to avoid re-compute sub-problem again. It's the same idea with 140. Word Break II.
+Then get the maximum length among those valid parentheses.
+Filter the result by choosing parentheses which has the length equals to the maximum length.
+        '''
+        
+        @cache
+        def dfs(i, bal):
+            res = set()
+            if bal < 0:
+                return res # invalid
+            if i == len(s):
+                if bal == 0:
+                    res.add("") # base case
+                return res
+            if s[i] == '(' or s[i] == ')':
+                res.update(dfs(i+1, bal)) # case 1, skip current parentheses
+            
+            # case 2, use parenthese
+            if s[i] == '(':
+                bal += 1
+            elif s[i] == ')':
+                bal -= 1
+            for path in dfs(i+1, bal):
+                res.add(s[i] + path)
+            return res
+        
+        combs = dfs(0, 0)
+        # print(combs)
+        max_res = max(combs, key=len)
+        max_len = len(max_res)
+        # print(max_len)
+        ans = []
+        for path in combs:
+            if len(path) == max_len:
+                ans.append(path)
+        return ans
+
+
 class Solution:
     def removeInvalidParentheses(self, s: str) -> List[str]:
         def dfs(s, i, left, right):

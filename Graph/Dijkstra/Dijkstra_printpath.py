@@ -31,6 +31,7 @@ def dijkstra(edges, source, target):
             if v not in dist or dist[v] > dist[u] + w:
                 dist[v] = dist[u] + w
                 heappush(hq, (dist[u] + w, v, path + [v]))
+    print(hq)
     return -1, []
 
 

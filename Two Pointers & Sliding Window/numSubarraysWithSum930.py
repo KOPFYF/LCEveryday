@@ -1,4 +1,27 @@
 class Solution:
+    def numSubarrayBoundedMax(self, nums: List[int], left: int, right: int) -> int:
+        def count(bound):
+            # only care about whether each element is less than
+            # count(B) is the number of subarrays that have all elements less than or equal to B
+            res, cur = 0, 0
+            for num in nums:
+                if num <= bound:
+                    cur += 1
+                else:
+                    cur = 0
+                res += cur
+            return res
+        
+        '''
+        [2,1,4,3], left = 2, right = 3
+        count(2) [2] [2,1], [1]
+        count(1) [1]
+        count(3) [2], [2,1], [1], [3]
+        
+        '''
+        return count(right) - count(left - 1)
+
+class Solution:
     def numSubarraysWithSum(self, A, S):
         """
         :type A: List[int]

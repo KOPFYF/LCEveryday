@@ -1,0 +1,58 @@
+1383. Maximum Performance of a Team
+    # heap. O(nlogn + nlogk) / O(n)
+    # We keep the queue with maximum size of k.
+    # Each time when we introduce a new engineer,
+    # we need only O(logK) to find the smallest speed in the team now.
+
+
+1761. Minimum Degree of a Connected Trio in a Graph
+Brute Force, O(n^3)
+
+1347. Minimum Number of Steps to Make Two Strings Anagram
+hashmap O(n)/ O(n)
+follow up: 给两个string和一个k，如果一个string改最多k个char可以和另一个string成为anagram就是valid的
+return cnt <= k
+
+有一个字符串 S1
+害有一个字符串数组 Sa[]
+问在Sa[]中的每一个字符串Sa[i], 输出这样的Sa[i], which可以通过替换不超过K个字符来变换成S1的anagram
+
+Q1) 给一个restaurant名字，和一个list的相似名字。一个名字如果swap任意两个char等于given name就是相似名字eg. given: "omega"
+similar: oemga, omeag, omega
+not similar: ommga, omegaa
+用4个变量存两个不一样的char和他们的index即可，等到遍历到下一组不一样的char，看index和是不是和之前存的相反就好
+
+Q2) 出现过好多次的k anagram(1347)
+
+
+
+
+795. Number of Subarrays with Bounded Maximum
+2 ptrs
+
+
+1359. Count All Valid Pickup and Delivery Options
+
+
+96. Unique Binary Search Trees
+'''
+G(n): # of unique BST for a seq of n
+F(n, i): # of unique BST for a seq of n using i as root
+G(n) = F(n, 1) + F(n, 2) + ... + F(n, n)
+F(n, i) = G(i - 1) * G(n - i)
+
+=> G(n) = G(1 - 1) * G(n - 1) + G(2 - 1) * G(n - 2) + ... + G(n - 1) * G(0)
+'''
+
+37. Sudoku Solver
+Backtracking, check every possible soln
+- board[x][y] = '#' # like a seen set, nx, ny = (x//3)*3 + dx, (y//3)*3 + dy
+- check(x, y), dfs(board)
+
+36	Valid Sudoku	
+One seen set check 3 conditions
+- AC. if board[x][y] != '.':, check seen set with (tmp, x, -1), (tmp, -1, y), (tmp, x//3, y//3)
+
+759. Employee Free Time
+flatten then check overlap, prev = events[0]
+if overlapped, extend prev, else, update prev and res
