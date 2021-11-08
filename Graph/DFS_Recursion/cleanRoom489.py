@@ -48,3 +48,34 @@ class Solution:
                 robot.turnLeft()
             robot.turnLeft() # Changed orientation.
             dx, dy = -dy, dx   
+
+
+
+class Solution:
+    def cleanRoom(self, robot):
+        """
+        :type robot: Robot
+        :rtype: None
+        """
+        path = set()
+        def dfs(x, y, dx, dy):
+            # clean current
+            path.add((x, y))
+            robot.clean()
+            
+            # clean next
+            for _ in range(4):
+                nx, ny = x + dx, y + dy
+                if (nx, ny) not in path and robot.move():
+                    dfs(nx, ny, dx, dy) # keep the same direction
+                robot.turnLeft()
+                dx, dy = -dy, dx # (1, 0) becomes (0, 1), (0, 1) becomes (-1, 0)
+            
+            # back to prev position and direction
+            robot.turnLeft()
+            robot.turnLeft()
+            robot.move() # back to original pos
+            robot.turnLeft()
+            robot.turnLeft() # back to original direction
+        
+        dfs(0, 0, 0, 1)

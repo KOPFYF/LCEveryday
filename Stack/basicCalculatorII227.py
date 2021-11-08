@@ -1,5 +1,42 @@
 class Solution:
     def calculate(self, s: str) -> int:
+        # O(n) / O(1)
+        s += '+'
+        prev = 0 # new var
+        num = 0
+        total = 0 # new var
+        prev_sign = '+'
+        
+        for ch in s:
+            if ch.isdigit():
+                num = num * 10 + int(ch)
+            elif ch in '+-*/':
+                if prev_sign == '+':
+                    total += num
+                    prev = num
+                elif prev_sign == '-':
+                    total -= num
+                    prev = -num
+                elif prev_sign == '*':
+                    # reverse one operation, 2 + 3 * 2
+                    #                          prev  num
+                    total -= prev
+                    total += prev * num
+                    prev = prev * num
+                elif prev_sign == '/':
+                    # reverse one operation, 2 + 3 / 2
+                    #                          prev  num
+                    total -= prev
+                    total += int(prev / num)
+                    prev = int(prev / num)
+                
+                prev_sign = ch
+                num = 0
+        return total
+
+class Solution:
+    def calculate(self, s: str) -> int:
+        # O(n) / O(n)
         stack = []
         n = len(s)
         sign = '+'

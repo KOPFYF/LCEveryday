@@ -4,6 +4,50 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+
+# 2021-Nov
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        self.res = []
+        
+        def dfs(node, cursum, path):
+            # sum from root to current node
+            if not node:
+                return
+            cursum += node.val
+            path.append(node.val)
+            if not node.left and not node.right:
+                if cursum == targetSum:
+                    self.res.append(path[:])
+            dfs(node.left, cursum, path[:])
+            dfs(node.right, cursum, path[:])
+            cursum -= node.val
+            path.pop()
+        
+        dfs(root, 0, [])
+        
+        return self.res
+    
+        
+        self.res = []
+        
+        def dfs(node, cursum, path):
+            # sum from root to current node
+            if not node:
+                return
+            cursum += node.val
+            nxt_path = path + [node.val]
+            if not node.left and not node.right:
+                if cursum == targetSum:
+                    self.res.append(nxt_path)
+            dfs(node.left, cursum, nxt_path)
+            dfs(node.right, cursum, nxt_path)
+        
+        dfs(root, 0, [])
+
+
+
 class Solution(object):
     def pathSum(self, root, sum):
         """

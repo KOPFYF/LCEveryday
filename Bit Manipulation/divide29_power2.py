@@ -4,6 +4,15 @@ class Solution:
         truncate toward zero
         2**31 = 2147483648
         −2**31 / (-1) will overflow
+
+        93706 / 157
+
+        tmp     i    dividend
+        (80384, 512,  13479)
+        (10048, 64,   3588)
+        (2512,  16,   1233)
+        (1256,  8,     134)
+
         
         '''
         # O(logn) / O(1)
@@ -24,6 +33,7 @@ class Solution:
                 res += i
                 i <<= 1
                 tmp <<= 1 # tmp = divisor * 2 ^ n, 2^n = i
+            print(tmp, i, dividend)
         
         if not sign:
             res = -res  

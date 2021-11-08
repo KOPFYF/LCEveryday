@@ -6,7 +6,8 @@ class Solution:
         while pq:
             t, x, y = heapq.heappop(pq)
             res = max(res, t)
-            if x == y == n - 1: return res
+            if x == y == n - 1: 
+                return res
             for dx, dy in [(0, 1), (1, 0), (-1, 0), (0, -1)]:
                 nx, ny = x + dx, y + dy
                 if 0 <= nx < n and 0 <= ny < n and (nx, ny) not in seen:

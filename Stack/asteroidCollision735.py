@@ -5,6 +5,25 @@
 class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
         stack = []
+        for a in asteroids:
+            while stack and a < 0 < stack[-1]:
+                if stack[-1] == -a: # destroy both
+                    stack.pop() # pop when stack[-1] got destroied
+                    break
+                elif stack[-1] < -a:
+                    stack.pop()
+                    # continue
+                elif stack[-1] > -a:
+                    break
+            else:
+                stack.append(a)
+        return stack
+    
+
+
+class Solution:
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        stack = []
         for ast in asteroids:
             # print(stack)
             if ast > 0: # fly to right, no crash

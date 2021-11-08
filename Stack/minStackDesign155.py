@@ -39,3 +39,4 @@ class MinStack:
             return None
         else:
             return self.s[len(self.s) - 1][1]
+            

@@ -1,5 +1,12 @@
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
+        '''
+        binary search O(logn)
+        check mid is even or odd
+        if mid is even, then it's duplicate should be in next index.
+        if mid is odd, then it's duplicate  should be in previous index.
+        
+        '''
         l, r = 0, len(nums) - 1
         while l < r:
             mid = (l + r) // 2
@@ -23,3 +30,10 @@ class Solution:
             else:
                 r = mid
         return nums[l]
+
+
+        # XOR, O(n)/O(1)
+        res = 0
+        for num in nums:
+            res ^= num
+        return res

@@ -27,37 +27,39 @@ class Solution0:
 
 
 class Solution:
-    # No slicing
-    # @param {integer[]} nums1
-    # @param {integer[]} nums2
-    # @return {float}
-    def find(self, nums1, s1, e1, nums2, s2, e2, k):
-        if e1 - s1 < 0:
-            return nums2[k + s2]
-        if e2 - s2 < 0:
-            return nums1[k + s1]
-        if k < 1:
-            return min(nums1[k + s1], nums2[k + s2])
-        ia, ib = (s1 + e1) // 2 , (s2 + e2) // 2
-        ma, mb = nums1[ia], nums2[ib]
-        if (ia - s1) + (ib - s2) < k:
-            if ma > mb:
-                return self.find(nums1, s1, e1, nums2, ib + 1, e2, k - (ib - s2) - 1)
-            else:
-                return self.find(nums1, ia + 1, e1, nums2, s2, e2, k - (ia - s1) - 1)
-        else:
-            if ma > mb:
-                return self.find(nums1, s1, ia - 1, nums2, s2, e2, k)
-            else:
-                return self.find(nums1, s1, e1, nums2, s2, ib - 1, k)
-
-    def findMedianSortedArrays(self, nums1, nums2):
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        # O(log (m+n))
         l = len(nums1) + len(nums2)
         if l % 2 == 1:
-            return self.find(nums1, 0, len(nums1) - 1, nums2, 0, len(nums2) - 1, l // 2)
+            return self.findkthlargest(nums1, 0, len(nums1) - 1, nums2, 0, len(nums2) - 1, l // 2)
         else:
-            return (self.find(nums1, 0, len(nums1) - 1, nums2, 0, len(nums2) - 1, l // 2) + \
-                    self.find(nums1, 0, len(nums1) - 1, nums2, 0, len(nums2) - 1, l // 2 - 1)) / 2.0
+            return (self.findkthlargest(nums1, 0, len(nums1) - 1, nums2, 0, len(nums2) - 1, l // 2) + \
+                   self.findkthlargest(nums1, 0, len(nums1) - 1, nums2, 0, len(nums2) - 1, l // 2-1) ) / 2.0
+        
+    def findkthlargest(self, nums1, s1, e1, nums2, s2, e2, k):
+        if e1 < s1:
+            return nums2[k + s2]
+        if e2 < s2:
+            return nums1[k + s1]
+        if k < 1:
+            return min(nums2[k + s2], nums1[k + s1])
+        
+        idx1, idx2 = (s1 + e1) // 2 , (s2 + e2) // 2
+        median1, median2 = nums1[idx1], nums2[idx2]
+        if (idx1 - s1) + (idx2 - s2) < k:
+            # if nums1's median is bigger than nums2's, 
+            # then nums2's first half doesn't include k
+            if median1 > median2:
+                return self.findkthlargest(nums1, s1, e1, nums2, idx2 + 1, e2, k - (idx2 - s2) - 1)
+            else:
+                return self.findkthlargest(nums1, idx1 + 1, e1, nums2, s2, e2, k - (idx1 - s1) - 1)
+        else:
+            # if nums1's median is bigger than nums2's, 
+            # then nums1's second half doesn't include k
+            if median1 > median2:
+                return self.findkthlargest(nums1, s1, idx1 - 1, nums2, s2, e2, k)
+            else:
+                return self.findkthlargest(nums1, s1, e1, nums2, s2, idx2 - 1, k)
 
 
 

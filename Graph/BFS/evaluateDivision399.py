@@ -1,54 +1,38 @@
-class Solution1(object):
-    def calcEquation(self, equations, values, queries):
-        """
-        :type equations: List[List[str]]
-        :type values: List[float]
-        :type queries: List[List[str]]
-        :rtype: List[float]
-        """
-        # a/b = 2.0, b/c = 3.0
-        # a -- 2.0 --> b -- 3.0 --> c
-        # c -- 1/3 --> b -- 1/2 --> a
-        # compress paths to make it faster (add memo)
-        # build graph takes O(E), each query takes O(N), space takes O(E)
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        graph = defaultdict(dict)
+        n = len(equations)
+        for i in range(n):
+            u, v = equations[i]
+            w = values[i]
+            graph[u][v] = w # u / v = w
+            graph[v][u] = 1.0 / w
         
-        graph = {}
-        
-        def build_graph(equations, values):
-            def add_edge(f, t, value): # (a, b, 2)
-                if f in graph:
-                    graph[f].append((t, value))
-                else:
-                    graph[f] = [(t, value)]
-                
-            for vs, value in zip(equations, values):
-                # build bi-directional graph
-                f, t = vs
-                add_edge(f, t, value)
-                add_edge(t, f, 1 / value)
-        
-        def find_path(query):
-            u, v = query
-            if u not in graph or v not in graph:
+        def bfs(query):
+            s, e = query
+            if s not in graph or e not in graph: 
                 return -1.0
+            if s == e: 
+                return 1.0
             
-            q = deque([(u, 1.0)]) # (vertex, current product)
-            seen = set()
-            # BFS
-            while q:
-                cur_node, cur_prod = q.popleft()
-                if cur_node == v:
-                    return cur_prod
-                seen.add(cur_node)
-                for nxt_node, nxt_value in graph[cur_node]:
-                    if nxt_node not in seen:
-                        q.append((nxt_node, cur_prod * nxt_value))
-            
+            bfs, seen = deque([(s, 1.0)]), set([s])
+            while bfs:
+                u, cur = bfs.popleft()
+                if u == e:
+                    return cur
+                for v, w in graph[u].items():
+                    if v not in seen:
+                        nxt = cur * w
+                        # compress, so use s, not u, given s-u-v, return s-v
+                        graph[s][v] = nxt
+                        graph[v][s] = 1.0 / nxt
+                        seen.add(v)
+                        bfs.append((v, nxt))
             return -1.0
         
-        build_graph(equations, values)
+        res =  [bfs(q) for q in queries]
         # print(graph)
-        return [find_path(query) for query in queries]
+        return res
 
 
 class Solution2:

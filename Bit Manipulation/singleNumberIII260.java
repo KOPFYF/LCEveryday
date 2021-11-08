@@ -5,7 +5,9 @@ class Solution {
         // 正数： 补码=反码=原码
         // 负数： 补码=反码+1
         int xor = 0;
-        for (int i = 0; i < nums.length; i++) xor ^= nums[i];
+        for (int i = 0; i < nums.length; i++) 
+            xor ^= nums[i];
+        
         int lastDigit = xor & (-xor); 
         // to diffreciate 2 nums,  xor & (~xor + 1) also ok
         int group1 = 0, group2 = 0;

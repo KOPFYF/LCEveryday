@@ -25,13 +25,16 @@ class Solution:
                 if node.right.val in to_delete:
                     node.right = None
         return res
-    
+
+class Solution:
+    def delNodes(self, root: TreeNode, to_delete: List[int]) -> List[TreeNode]:    
         # DFS, O(n)/O(h + n)
         to_delete = set(to_delete)
         res = []
         
         def dfs(root, parent_delete):
-            if not root: return None
+            if not root: 
+                return None
             root_deleted = root.val in to_delete
             
             if parent_delete and not root_deleted:
@@ -43,4 +46,30 @@ class Solution:
             return None if root_deleted else root
         
         dfs(root, True)
+        return res
+
+
+class Solution:
+    def delNodes(self, root: TreeNode, to_delete: List[int]) -> List[TreeNode]:
+        to_delete = set(to_delete)
+        res = []
+        
+        def dfs(root, parent_exist):
+            # return root itself after deleting
+            if not root:
+                return None
+            if root.val in to_delete:
+                # delete current root
+                root.left = dfs(root.left, False)
+                root.right = dfs(root.right, False)
+                return None # root is deleted, so return none
+            else:
+                # keep current root
+                if not parent_exist: 
+                    # parent does not exist, so it's a new node
+                    res.append(root)
+                root.left = dfs(root.left, True)
+                root.right = dfs(root.right, True)
+                return root
+        dfs(root, False)
         return res

@@ -22,7 +22,6 @@ Topo-sort(no cycle), backtracking
 - did it again.. have a _parse() to parse str, recursion in get(), when set(), need to remove 'sum', so set both!!
 - AC
 - AC, in range(height+1)
-- AC
 
 726	Number of Atoms	51.3%	Hard
 Stack
@@ -71,10 +70,10 @@ binary search is O(logn), deque is O(n)
 
 
 23 merge k sorted array
-backtracking
-- AC, recursion on mergeK, base case is merge2Lists(), O(Nlogk)
+backtracking, divide and conquer O(nlogk) / O(1)
+heap. O(nlogk)
+- AC, recursion on mergeK, base case is merge2Lists()
 - AC
-- AC, heap soln is also O(Nlogk)
 
 
 721	Accounts Merge 53.8%	Medium	
@@ -110,7 +109,6 @@ One seen set check 3 conditions
 76	Minimum Window Substring 37.7%	Hard
 - Still need some refresh.
 - AC
-- for j, first cnt++, then need--, for i, first need++, then cnt --
 
 
 529. Minesweeper
@@ -119,9 +117,8 @@ One seen set check 3 conditions
 
 
 212 Word Search II HARD
-Trie
 - DFS TLE, O(mn3^lw)
-- AC
+- 
 
 
 71  Simplify Path 36.1% Medium
@@ -165,7 +162,6 @@ Hashmap. read the question carefully and follow the guide. Should be an easy
 - AC
 - pass in cpdomain but not codomains into parse(), num = int(num)
 
-
 210	course Schedule II 44.5%	Medium
 topo-sort, need hint for the first time
 BFS, take care when build graph, based on indegree
@@ -192,7 +188,6 @@ Trie
 graph, greedy O(n)
 brute force is O(n^2)
 - AC!!
-- AC
 - AC
 - AC
 
