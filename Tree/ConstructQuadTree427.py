@@ -25,8 +25,10 @@ class Solution:
         n = len(grid)
         half = n // 2
         if isLeaf(grid):
+            # If the current grid has the same value (i.e all 1's or all 0's) set isLeaf True and set val to the value of the grid and set the four children to Null
             return Node(grid[0][0] == 1, True, None, None, None, None)
         else:
+            # If the current grid has different values, set isLeaf to False and set val to any value
             return Node('*', False, \
                        self.construct([row[:half] for row in grid[:half]]), \
                        self.construct([row[half:] for row in grid[:half]]), \

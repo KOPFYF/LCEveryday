@@ -1,4 +1,46 @@
 class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.value = None
+
+class FileSystem:
+
+    def __init__(self):
+        self.root = TrieNode()
+
+    def createPath(self, path: str, value: int) -> bool:
+        '''
+        Creates a new path and associates a value to it if possible and returns true. 
+        Returns false if 
+            - the path already exists or
+            - its parent path doesn't exist.
+        '''
+        node = self.root
+        dirs = path.split('/')[1:]
+        size = len(dirs)
+        for i, f in enumerate(dirs):
+            if f not in node.children:
+                if i < size - 1:
+                    return False # its parent path doesn't exist.
+                else:
+                    node.children[f] = TrieNode()
+                    node.children[f].value = value
+                    return True
+            else:
+                if i == size - 1:
+                    return False # the path already exists
+                node = node.children[f]
+                      
+    def get(self, path: str) -> int:
+        node = self.root
+        for f in path.split('/')[1:]:
+            if f not in node.children:
+                return -1
+            node = node.children[f]
+        return node.value
+
+
+class TrieNode:
     def __init__(self, value):
         self.children = {}
         # self.name = name

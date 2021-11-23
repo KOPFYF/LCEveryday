@@ -1,5 +1,29 @@
 class Solution:
     def slidingPuzzle(self, board: List[List[int]]) -> int:
+        s = ''.join(str(cell) for row in board for cell in row)
+        bfs, seen = deque([(s, s.index('0'), 0)]), {s}
+        
+        m, n = len(board), len(board[0])
+        while bfs:
+            encoding, index0, steps = bfs.popleft()
+            if encoding == '123450':
+                return steps
+            x, y = index0 // n, index0 % n
+            # try to switch 0 with neighbors
+            for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < m and 0 <= ny < n:
+                    flatten = [digit for digit in encoding]
+                    flatten[index0], flatten[nx*n+ny] = flatten[nx*n+ny], flatten[index0]
+                    nxt_encoding = ''.join(flatten)
+                    if nxt_encoding not in seen:
+                        seen.add(nxt_encoding)
+                        bfs.append((nxt_encoding, nx*n+ny, steps + 1))
+        
+        return -1
+
+class Solution:
+    def slidingPuzzle(self, board: List[List[int]]) -> int:
         # BFS, where the nodes are the puzzle boards 
         # and edges are if two puzzle boards can be transformed into one another with one move.
         s = ''.join(str(d) for row in board for d in row) # Encode board permutation
