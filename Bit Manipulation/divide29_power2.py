@@ -1,5 +1,35 @@
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
+        # O(32)
+        if dividend == -2**31 and divisor == -1:
+            return 2**31 - 1
+        
+        sign = (dividend > 0) == (divisor > 0) # if True, pos
+        dividend, divisor = abs(dividend), abs(divisor)
+        
+        tmp, res = 0, 0
+        for i in range(31, -1, -1):
+            if tmp + (divisor << i) <= dividend:
+                tmp += divisor << i
+                res += 1 << i
+    
+        # res = 0
+        # while dividend >= divisor:
+        #     tmp, i = divisor, 1
+        #     while dividend >= tmp:
+        #         dividend -= tmp
+        #         res += i
+        #         i <<= 1
+        #         tmp <<= 1
+        
+        if sign:
+            return res
+        else:
+            return -res
+
+
+class Solution:
+    def divide(self, dividend: int, divisor: int) -> int:
         '''
         truncate toward zero
         2**31 = 2147483648

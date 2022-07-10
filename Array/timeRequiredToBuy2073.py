@@ -3,17 +3,17 @@ class Solution:
         # O(n)
         res = 0
         for i, ticket in enumerate(tickets):
-			if i <= k:
+            if i <= k:
                 # before k, take min for each person
-				res += min(ticket, tickets[k])
-			else:
-				if ticket < tickets[k]:
+                res += min(ticket, tickets[k])
+            else:
+                if ticket < tickets[k]:
                     # run out before tickets[k], take all
-					res += ticket
-				else:
+                    res += ticket
+                else:
                     # run out after tickets[k], take tickets[k] - 1
-					res += tickets[k] - 1
-		return res
+                    res += tickets[k] - 1
+        return res
         
         
         # O(sum(tickets))

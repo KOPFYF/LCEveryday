@@ -6,7 +6,8 @@
 #         self.right = right
 '''
 Traverse the binary tree by level order;
-If the current node has left and right child, pop it out, and add both of its children into the queue; otherwise, insert new node as its child;
+If the current node has left and right child, pop it out, 
+and add both of its children into the queue; otherwise, insert new node as its child;
 repeat the above till encounter the first node that does NOT have two children.
 '''
 class CBTInserter:

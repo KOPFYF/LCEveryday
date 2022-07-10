@@ -1,4 +1,42 @@
 class Solution:
+    def isMatch(self, text: str, pattern: str) -> bool:
+        # dp(i, j): does text[i:] and pattern[j:] match?
+        m, n = len(text), len(pattern)
+        
+        @lru_cache(None)
+        def dfs(i, j):
+            if j == n:
+                return i == m
+            # cur_match matches i
+            cur_match = (i < m) and pattern[j] in (text[i], '.')
+            if j + 1 < n and pattern[j+1] == '*':
+                # if * in next, skip it(match zero) or match i+1
+                return dfs(i, j + 2) or (cur_match and dfs(i+1, j))
+            else:
+                # no start, cur_match, i++, j++
+                return cur_match and dfs(i+1, j+1)
+            
+        return dfs(0, 0)
+
+
+class Solution(object):
+    def isMatch(self, text, pattern):
+        dp = [[False] * (len(pattern) + 1) for _ in range(len(text) + 1)]
+
+        dp[-1][-1] = True
+        for i in range(len(text), -1, -1):
+            for j in range(len(pattern) - 1, -1, -1):
+                first_match = i < len(text) and pattern[j] in {text[i], '.'}
+                if j+1 < len(pattern) and pattern[j+1] == '*':
+                    dp[i][j] = dp[i][j+2] or first_match and dp[i+1][j]
+                else:
+                    dp[i][j] = first_match and dp[i+1][j+1]
+
+        return dp[0][0]
+
+
+
+class Solution:
     def isMatch(self, s: str, p: str) -> bool:
         m = len(s)
         n = len(p)
