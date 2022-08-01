@@ -20,16 +20,17 @@ class Solution:
             i += 1
         return res
     
-        # 100ms, time O(n), space O(2m) 
-        m, cur = [0] * 26, [0] * 26
+        # time O(s), space O(26)
+        dic, cur = [0] * 26, [0] * 26
         res, n = [], len(p)
-        for c in p:
-            m[ord(c) - ord('a')] += 1
-        
-        for i, c in enumerate(s):
-            cur[ord(c) - ord('a')] += 1
+        for ch in p:
+            dic[ord(ch) - ord('a')] += 1
+            
+        for i, ch in enumerate(s):
+            cur[ord(ch) - ord('a')] += 1
             if i >= n:
                 cur[ord(s[i - n]) - ord('a')] -= 1
-            if cur == m:
+            if cur == dic: # O(1)
                 res.append(i - n + 1)
+        
         return res

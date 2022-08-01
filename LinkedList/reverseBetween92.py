@@ -8,10 +8,11 @@ class Solution:
         '''
         When we are at the line pre.next.next = cur the LL looks like this for [1,2,3,4,5] m = 2, n = 4
 
-1 -> 2 <- 3 <- 4    5
-pre            rev
+        1 -> 2 <- 3 <- 4    5
+        pre            rev
 
-Note that there is no connection between 4 and 5, here pre is node 1, reverse is node 4, cur is node 5; So pre.next.next = cur is basically linking 2 with 5; pre.next = reverse links node 1 with node 4.
+        Note that there is no connection between 4 and 5, here pre is node 1, reverse is node 4, cur is node 5; 
+        So pre.next.next = cur is basically linking 2 with 5; pre.next = reverse links node 1 with node 4.
         
         '''
         if m == n:
