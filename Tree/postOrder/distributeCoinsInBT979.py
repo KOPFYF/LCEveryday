@@ -18,3 +18,21 @@ class Solution:
         
         postOrder(root)
         return self.res
+
+
+class Solution2:
+    def distributeCoins(self, root: Optional[TreeNode]) -> int:
+        # the child give x=(y-1) coins to parent, if he has y coins
+        # post order
+        def dfs(node, parent):
+            # return moves we need for current node
+            if not node:
+                return 0
+            moves = dfs(node.left, node) + dfs(node.right, node)
+            if parent:
+                parent.val += (node.val - 1)
+            # if y=0=> x=-1 then parent should give the child 1 coin
+            moves += abs(node.val - 1)
+            return moves
+
+        return dfs(root, None)
