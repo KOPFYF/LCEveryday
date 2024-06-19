@@ -1,4 +1,4 @@
-# Definition for a binary tree node.
+no# Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
 #         self.val = val
@@ -24,4 +24,7 @@ class Solution(object):
             if node.right:
                 queue.append((node.right, index+1))
         # The keys of the table are the indices, if we sort them we get from lowest to highest index
-        return [table[index] for index in sorted(table)]
+        # return [table[index] for index in sorted(table)]
+
+        # no need to sort
+        return [table[i] for i in range(min(table), max(table) + 1)]
