@@ -1,11 +1,15 @@
 class Solution:
-    def maxSatisfied(self, customers: List[int], grumpy: List[int], x: int) -> int:
-        pre_satisfied = sum(c for c, g in zip(customers, grumpy) if not g)
-        n = len(customers)
-        res = runsum = sum(c for c, g in zip(customers[:x], grumpy[:x]) if g)
+    def maxSatisfied(self, customers: List[int], grumpy: List[int], X: int) -> int:
+        # time O(n), space O(1)
+        satisfied, unsatisfied, trickSatisfied = 0, 0, 0
+        for i, c in enumerate(customers):
+            if not grumpy[i]:
+                satisfied += c
+            else:
+                unsatisfied += c
+            if i >= X: # shrink the window
+                unsatisfied -= customers[i - X] * grumpy[i - X] # we can turn this into trickSatisfied
+            
+            trickSatisfied = max(trickSatisfied, unsatisfied)
         
-        for i in range(n):
-            if i + x < n:
-                runsum = runsum - customers[i] * grumpy[i] + customers[i+x] * grumpy[i+x]
-                res = max(runsum, res)
-        return res + pre_satisfied
+        return satisfied + trickSatisfied
